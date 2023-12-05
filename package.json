@@ -1,0 +1,11 @@
+{
+  "name": "lopenserver",
+  "version": "1.0.0",
+  "description": "mr talati's candie's shop webSite",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arashk Yadegar",
+  "license": "ISC"
+}
