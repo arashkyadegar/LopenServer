@@ -1,0 +1,13 @@
+2023-12-05T20:48:40.547Z SiteInfoRouterClass updateOneSiteInfo error: "footerImage2" is not allowed to be empty
+2023-12-05T20:50:10.278Z SiteInfoDal updateOne error: siteInfo.update is not a function
+2023-12-05T20:52:00.752Z SiteInfoDal updateOne error: siteInfo.update is not a function
+2023-12-05T20:53:53.128Z SiteInfoDal updateOne error: siteInfo.update is not a function
+2023-12-05T20:55:07.192Z SiteInfoDal updateOne error: siteInfo.update is not a function
+2023-12-05T20:56:10.512Z SiteInfoDal updateOne error: siteInfo.update is not a function
+2023-12-05T20:56:42.789Z SiteInfoDal updateOne error: siteInfo.update is not a function
+2023-12-05T21:00:01.359Z SiteInfoDal updateOne error: siteInfo.update is not a function
+2023-12-05T21:03:51.377Z SiteInfoRouterClass updateOneSiteInfo error: "email1" must be []
+2023-12-05T21:07:01.890Z SiteInfoRouterClass updateOneSiteInfo error: "tel1" must be []
+2023-12-05T21:08:13.988Z SiteInfoRouterClass updateOneSiteInfo error: "email1" must be a valid email
+2023-12-05T21:10:22.873Z SiteInfoRouterClass updateOneSiteInfo error: "email1" must be a valid email
+2023-12-05T21:10:30.028Z SiteInfoRouterClass updateOneSiteInfo error: "email1" is not allowed to be empty
