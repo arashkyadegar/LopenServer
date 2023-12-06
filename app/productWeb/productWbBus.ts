@@ -17,6 +17,7 @@ export class ProductWbBusConc implements ProductWbBus {
     return result;
   }
   async findOne(id: string): Promise<ProductEntity> {
+    
     const result = await this.db.findOne("1");
     return result;
   }
