@@ -16,11 +16,15 @@ export class ProductEntity {
   isAvailable: boolean = true;
   tags: string[] = [];
   image: string = "";
-  images:  string[] = [];
+  images: string[] = [];
   userId: string = "";
   date!: Date;
 }
-
+export class ProductWbEntity extends ProductEntity {
+  liked: boolean = false;
+  scores: any[] = [];
+  likes: any[] = [];
+}
 export const ProductSchema = Joi.object({
   _id: Joi.objectId().allow(""),
   name: Joi.string(),
@@ -44,4 +48,5 @@ export const ProductSchema = Joi.object({
 module.exports = {
   ProductEntity,
   ProductSchema,
+  ProductWbEntity
 };
