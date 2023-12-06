@@ -1,4 +1,3 @@
-
 import express from "express";
 import { Base64 } from "../utility/base64";
 import jwt from "jsonwebtoken";
@@ -24,15 +23,15 @@ ProductWbRouter.get("/", async function (req, res, next) {
 
 ProductWbRouter.get("/:id", async function (req, res, next) {
   try {
-    //   const postBus = new PostBusConc(new PostDalConc());
-    //   const router = new PostRouterClass(postBus);
-    //   const result = await router.findAll(req, res, next);
+    const postBus = new ProductWbBusConc(new ProductWbDalConc());
+    const router = new ProductWbRouterClass(postBus);
+    const result = await router.findOneProduct(req, res, next);
 
-    return res.status(200).send({ payload: "hi this is me" });
+    return res.status(200).send(result.message);
   } catch (err: any) {
-    //   const logger = new PostRouterLogger();
-    //   logger.logError(err, "post");
-    // next(err);
+      const logger = new ProductWbRouterClassLogger();
+      logger.logError(err, "get /:id");
+    next(err);
   }
 });
 

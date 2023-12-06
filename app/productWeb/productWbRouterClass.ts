@@ -35,54 +35,56 @@ export class ProductWbRouterClass {
   //       };
   //     }
   //   }
-  //   async getOneProduct(req, res, next): Promise<any> {
-  //     let result;
-  //     let userId: string = "";
-  //     if(req.query.userId != undefined) {
-  //       if(!validator.isMongoId(validator.escape(req.query.userId.toString()))){
-  //         const errorResponse = `validation failed. userId is not valid`;
-  //         this.logger.logError(errorResponse,"getOneProduct");
-  //         return {
-  //           status : ResponseStatus.BAD_REQUEST,
-  //           message : errorResponse
-  //        };
-  //       }
-  //     }
 
-  //     if (req.params.id === undefined) {
-  //       const errorResponse = `validation failed. id is not provided`;
+    async findOneProduct(req, res, next): Promise<any> {
+      let result;
+      let wbuserId: string = "";
+      if(req.query.wbuserId != undefined) {
+        if(!validator.isMongoId(validator.escape(req.query.wbuserId.toString()))){
+          const errorResponse = `validation failed. userId is not valid`;
+          this.logger.logError(errorResponse,"findOneProduct");
+          return {
+            status : ResponseStatus.BAD_REQUEST,
+            message : errorResponse
+         };
+        }
+      }
 
-  //       return {
-  //         status: ResponseStatus.BAD_REQUEST,
-  //         message: errorResponse,
-  //       };
-  //     }
+      if (req.params.id === undefined) {
+        const errorResponse = `validation failed. id is not provided`;
+        this.logger.logError(errorResponse, "findOneProduct");
+        return {
+          status: ResponseStatus.BAD_REQUEST,
+          message: errorResponse,
+        };
+      }
 
-  //     if (!validator.isMongoId(req.params.id.toString())) {
-  //       const errorResponse = `validation failed. id is not valid`;
-  //       return {
-  //         status: ResponseStatus.BAD_REQUEST,
-  //         message: errorResponse,
-  //       };
-  //     }
+      if (!validator.isMongoId(req.params.id.toString())) {
+        const errorResponse = `validation failed. id is not valid`;
+        this.logger.logError(errorResponse, "findOneProduct");
+        return {
+          status: ResponseStatus.BAD_REQUEST,
+          message: errorResponse,
+        };
+      }
 
-  //     let id = req.params.id;
-  //     userId = req.query.userId;
-  //     result = await this.bus.findOne(id, userId);
+      let id = req.params.id;
+      wbuserId = req.query.wbuserId;
+      result = await this.bus.findOne(id, wbuserId);
 
-  //     if (result === undefined) {
-  //       const errorResponse = `item not found.`;
-  //       this.logger.logError(errorResponse, "getOneProduct");
-  //       return {
-  //         status: ResponseStatus.NOT_FOUND,
-  //         message: errorResponse,
-  //       };
-  //     }
-  //     return {
-  //       status: ResponseStatus.OK,
-  //       message: result,
-  //     };
-  //   }
+      if (result === undefined) {
+        const errorResponse = `item not found.`;
+        this.logger.logError(errorResponse, "findOneProduct");
+        return {
+          status: ResponseStatus.NOT_FOUND,
+          message: errorResponse,
+        };
+      }
+      return {
+        status: ResponseStatus.OK,
+        message: result,
+      };
+    }
   //   async getAllProducts(req, res, next): Promise<any> {
   //     let pageNumber = 0;
   //     if (req.query.page === undefined) {
