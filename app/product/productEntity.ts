@@ -1,6 +1,5 @@
 const Joi = require("joi");
-Joi.objectId = require('joi-objectid')(Joi);
-
+Joi.objectId = require("joi-objectid")(Joi);
 
 export class ProductEntity {
   _id: string = "";
@@ -16,31 +15,33 @@ export class ProductEntity {
   display: boolean = true;
   isAvailable: boolean = true;
   tags: string[] = [];
-  isShow: boolean = true;
   image: string = "";
+  images:  string[] = [];
+  userId: string = "";
+  date!: Date;
 }
 
 export const ProductSchema = Joi.object({
-     _id: Joi.objectId().allow(''),
-     name: Joi.string(),
-     weight: Joi.string(),
-     size: Joi.string(),
-     HealthId: Joi.string(),
-     type: Joi.string(),
-     components: Joi.string(),
-     desc: Joi.string(),
-     score: Joi.number(),
-     price: Joi.number(),
-     display: Joi.boolean(),
-     isAvailable: Joi.boolean(),
-     isShow: Joi.boolean(),
-     image: Joi.string(),
-     tags: Joi.array().items(Joi.string())
-   });
+  _id: Joi.objectId().allow(""),
+  name: Joi.string(),
+  weight: Joi.string(),
+  size: Joi.string(),
+  HealthId: Joi.string(),
+  type: Joi.string(),
+  components: Joi.string().allow(""),
+  desc: Joi.string().allow(""),
+  score: Joi.number(),
+  price: Joi.number(),
+  display: Joi.boolean(),
+  isAvailable: Joi.boolean(),
+  image: Joi.string(),
+  images: Joi.array().items(Joi.string()),
+  tags: Joi.array().items(Joi.string()),
+  userId: Joi.string(),
+  date: Joi.string().allow(""),
+});
 
-
-   module.exports = {
-     ProductEntity,
-     ProductSchema
-   };
-   
+module.exports = {
+  ProductEntity,
+  ProductSchema,
+};
