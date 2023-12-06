@@ -2,8 +2,8 @@ import validator from "validator";
 import { ProductBus } from "./productBus";
 import { ResponseStatus } from "../utility/errorStatus";
 import { ProductEntity, ProductSchema } from "./productEntity";
-//import { validate, isEmpty } from "class-validator";
 import { ProductRouterClassLogger } from "../logger/productLogger";
+
 
 export class ProductRouterClass {
   bus: ProductBus;
@@ -13,14 +13,88 @@ export class ProductRouterClass {
     this.logger = new ProductRouterClassLogger();
   }
 
-    async findAll(req, res, next): Promise<any> {
-      const result = await this.bus.findAll();
+  async findAll(req, res, next): Promise<any> {
+    const result = await this.bus.findAll();
+    return {
+      status: ResponseStatus.OK,
+      message: result,
+    };
+  }
+  
+
+  async deleteSoftOneProduct(req, res, next) {
+    let result;
+    if (req.params.id === undefined) {
+      const errorResponse = `validation failed. id is not provided`;
+      this.logger.logError(errorResponse, "deleteOneProduct");
       return {
-        status: ResponseStatus.OK,
-        message: result,
+        status: ResponseStatus.BAD_REQUEST,
+        message: errorResponse,
       };
     }
 
+    if (!validator.isMongoId(req.params.id.toString())) {
+      const errorResponse = `validation failed. id is not valid`;
+      this.logger.logError(errorResponse, "deleteOneProduct");
+      return {
+        status: ResponseStatus.BAD_REQUEST,
+        message: errorResponse,
+      };
+    }
+
+    let id = req.params.id;
+    result = await this.bus.deleteSoftOneProduct(id);
+
+    if (result === undefined) {
+      const errorResponse = `item not found.`;
+      this.logger.logError(errorResponse, "deleteOneProduct");
+      return {
+        status: ResponseStatus.NOT_FOUND,
+        message: errorResponse,
+      };
+    }
+    return {
+      status: ResponseStatus.OK,
+      message: result,
+    };
+  }
+
+  async findOneProduct(req, res, next) {
+    let result;
+    if (req.params.id === undefined) {
+      const errorResponse = `validation failed. id is not provided`;
+      this.logger.logError(errorResponse, "findOneProduct");
+      return {
+        status: ResponseStatus.BAD_REQUEST,
+        message: errorResponse,
+      };
+    }
+
+    if (!validator.isMongoId(req.params.id.toString())) {
+      const errorResponse = `validation failed. id is not valid`;
+      this.logger.logError(errorResponse, "findOneProduct");
+      return {
+        status: ResponseStatus.BAD_REQUEST,
+        message: errorResponse,
+      };
+    }
+
+    let id = req.params.id;
+    result = await this.bus.findOne(id);
+
+    if (result === undefined) {
+      const errorResponse = `item not found.`;
+      this.logger.logError(errorResponse, "findOneProduct");
+      return {
+        status: ResponseStatus.NOT_FOUND,
+        message: errorResponse,
+      };
+    }
+    return {
+      status: ResponseStatus.OK,
+      message: result,
+    };
+  }
   //   async findByAuthor(req, res, next): Promise<any> {
   //     let authorId;
   //     if (isEmpty(validator.escape(req.query.authorId))) {
@@ -36,54 +110,56 @@ export class ProductRouterClass {
   //       };
   //     }
   //   }
-  //   async getOneProduct(req, res, next): Promise<any> {
-  //     let result;
-  //     let userId: string = "";
-  //     if(req.query.userId != undefined) {
-  //       if(!validator.isMongoId(validator.escape(req.query.userId.toString()))){
-  //         const errorResponse = `validation failed. userId is not valid`;
-  //         this.logger.logError(errorResponse,"getOneProduct");
-  //         return {
-  //           status : ResponseStatus.BAD_REQUEST,
-  //           message : errorResponse
-  //        };
-  //       }
-  //     }
 
-  //     if (req.params.id === undefined) {
-  //       const errorResponse = `validation failed. id is not provided`;
+  async updateOneProduct(req, res, next): Promise<any> {
+    let result;
+    let userId: string = "";
 
-  //       return {
-  //         status: ResponseStatus.BAD_REQUEST,
-  //         message: errorResponse,
-  //       };
-  //     }
+    if (req.params.id === undefined) {
+      const errorResponse = `validation failed. id is not provided`;
+      this.logger.logError(errorResponse, "updateOneProduct");
+      return {
+        status: ResponseStatus.BAD_REQUEST,
+        message: errorResponse,
+      };
+    }
 
-  //     if (!validator.isMongoId(req.params.id.toString())) {
-  //       const errorResponse = `validation failed. id is not valid`;
-  //       return {
-  //         status: ResponseStatus.BAD_REQUEST,
-  //         message: errorResponse,
-  //       };
-  //     }
+    if (!validator.isMongoId(req.params.id.toString())) {
+      const errorResponse = `validation failed. id is not valid`;
+      this.logger.logError(errorResponse, "updateOneProduct");
+      return {
+        status: ResponseStatus.BAD_REQUEST,
+        message: errorResponse,
+      };
+    }
 
-  //     let id = req.params.id;
-  //     userId = req.query.userId;
-  //     result = await this.bus.findOne(id, userId);
+    let id = req.params.id;
+    const ProductEntity = req.body as ProductEntity;
+    const { error } = ProductSchema.validate(ProductEntity);
+    if (error) {
+      const errorResponse = `validation failed. errors: ${error} `;
+      this.logger.logError(errorResponse, "updateOneProduct");
+      return {
+        message: errorResponse,
+        status: ResponseStatus.BAD_REQUEST,
+      };
+    }
 
-  //     if (result === undefined) {
-  //       const errorResponse = `item not found.`;
-  //       this.logger.logError(errorResponse, "getOneProduct");
-  //       return {
-  //         status: ResponseStatus.NOT_FOUND,
-  //         message: errorResponse,
-  //       };
-  //     }
-  //     return {
-  //       status: ResponseStatus.OK,
-  //       message: result,
-  //     };
-  //   }
+    result = await this.bus.updateOne(id, ProductEntity);
+
+    if (result === undefined) {
+      const errorResponse = `item not found.`;
+      this.logger.logError(errorResponse, "updateOneProduct");
+      return {
+        status: ResponseStatus.NOT_FOUND,
+        message: errorResponse,
+      };
+    }
+    return {
+      status: ResponseStatus.OK,
+      message: result,
+    };
+  }
   //   async getAllProducts(req, res, next): Promise<any> {
   //     let pageNumber = 0;
   //     if (req.query.page === undefined) {
@@ -115,6 +191,7 @@ export class ProductRouterClass {
     const { error } = ProductSchema.validate(ProductEntity);
     if (error) {
       const errorResponse = `validation failed. errors: ${error} `;
+      this.logger.logError(errorResponse, "updateOneProduct");
       return {
         message: errorResponse,
         status: ResponseStatus.BAD_REQUEST,

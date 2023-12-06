@@ -5,7 +5,7 @@ export interface ProductBus {
   updateOne(id: string, entity: ProductEntity): Promise<boolean>;
   findOne(id: string): Promise<ProductEntity>;
   createOne(entity: ProductEntity): Promise<boolean>;
-  deleteOne(id: string): Promise<boolean>;
+  deleteSoftOneProduct(id: string): Promise<boolean>;
   findAll(): Promise<ProductEntity[]>;
 }
 
@@ -18,7 +18,7 @@ export class ProductBusConc implements ProductBus {
     const result = await this.db.createOne(entity);
     return result;
   }
-  deleteOne(id: string): Promise<boolean> {
+  deleteSoftOneProduct(id: string): Promise<boolean> {
     throw new Error("Method not implemented.");
   }
   async findAll(): Promise<ProductEntity[]> {
@@ -26,11 +26,11 @@ export class ProductBusConc implements ProductBus {
     return result;
   }
   async findOne(id: string): Promise<ProductEntity> {
-    const result = await this.db.findOne("1");
+    const result = await this.db.findOne(id);
     return result;
   }
   async updateOne(id: string, entity: ProductEntity): Promise<boolean> {
-    const result = await this.db.updateOne("1", entity);
+    const result = await this.db.updateOne(id, entity);
     return result;
   }
 }
