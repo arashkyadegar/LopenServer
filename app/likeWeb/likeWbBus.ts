@@ -23,3 +23,7 @@ export class LikeWbBusConc implements LikeWbBus {
     return result;
   }
 }
+
+module.exports = {
+  LikeWbBusConc
+};

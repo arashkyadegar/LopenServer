@@ -1,4 +1,3 @@
-
 import { MongoDb } from "../config/mongodb";
 import { LikeEntity } from "../like/likeEntity";
 import { LikeWbDalLogger } from "../logger/likeWbLogger";
@@ -28,6 +27,7 @@ export class LikeWbDalConc implements LikeWbDal {
       });
     } catch (err: any) {
       this.logger.logError(err, "deleteOne");
+      return err;
     }
     return result;
   }
