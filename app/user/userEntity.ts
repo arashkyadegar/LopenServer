@@ -6,6 +6,7 @@ export class IUser {
 
 export class UserEntity extends IUser {}
 export class UserWbEntity extends IUser {}
+
 export const UserEntitySchema = Joi.object({
   _id: Joi.string(),
   name: Joi.string(),
