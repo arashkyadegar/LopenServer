@@ -4,7 +4,7 @@ import { ProductWbDal } from "./productWbDal";
 export interface ProductWbBus {
   updateOne(id: string, entity: ProductEntity): Promise<boolean>;
   findOne(id: string, wbuserId: string): Promise<ProductEntity>;
-  findAll(): Promise<ProductEntity[]>;
+  findAll(): Promise<ProductWbEntity[]>;
 }
 
 export class ProductWbBusConc implements ProductWbBus {
@@ -12,8 +12,11 @@ export class ProductWbBusConc implements ProductWbBus {
   constructor(db: ProductWbDal) {
     this.db = db;
   }
-  async findAll(): Promise<ProductEntity[]> {
+  async findAll(): Promise<ProductWbEntity[]> {
     const result = await this.db.findAll();
+    result.forEach((element) => {
+      element.score = this.calculateScore(element);
+    });
     return result;
   }
   async findOne(id: string, wbuserId: string): Promise<ProductWbEntity> {

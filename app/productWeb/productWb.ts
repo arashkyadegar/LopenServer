@@ -25,7 +25,7 @@ ProductWbRouter.get("/:id", async function (req, res, next) {
   try {
     const postBus = new ProductWbBusConc(new ProductWbDalConc());
     const router = new ProductWbRouterClass(postBus);
-    const result = await router.findOneProduct(req, res, next);
+    const result = await router.findOne(req, res, next);
 
     return res.status(200).send(result.message);
   } catch (err: any) {

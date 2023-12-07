@@ -6,7 +6,7 @@ var ObjectId = require("mongodb").ObjectId;
 export interface ProductWbDal {
   updateOne(id: string, entity: ProductEntity): Promise<boolean>;
   findOne(id: string): Promise<ProductWbEntity>;
-  findAll(): Promise<ProductEntity[]>;
+  findAll(): Promise<ProductWbEntity[]>;
 }
 export class ProductWbDalConc implements ProductWbDal {
   logger: any;
@@ -52,7 +52,7 @@ export class ProductWbDalConc implements ProductWbDal {
     return result;
   }
 
-  async findAll(): Promise<ProductEntity[]> {
+  async findAll(): Promise<ProductWbEntity[]> {
     let result;
     try {
       const collection = MongoDb.dbconnect("products");
@@ -66,6 +66,14 @@ export class ProductWbDalConc implements ProductWbDal {
                 localField: "_id",
                 foreignField: "productId",
                 as: "likes",
+              },
+            },
+            {
+              $lookup: {
+                from: "scores",
+                localField: "_id",
+                foreignField: "productId",
+                as: "scores",
               },
             },
             { $addFields: { liked: false } },
