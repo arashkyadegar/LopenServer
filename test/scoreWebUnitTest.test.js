@@ -6,7 +6,7 @@ const { ScoreWbDalConc } = require('../dist/app/scoreWeb/scoreWbDal');
 const { ScoreEntitySchema } = require('../dist/app/score/scoreEntity');
 const { ResponseStatus } = require('../dist/app/utility/errorStatus');
 
-describe("ScoreWbRouterClass Unit Tests", function () {
+describe("ScoreWbRouterClass", function () {
      describe("updateOneScore", function () { 
           it("1- updateOneScore should response 400 if id is undefiend", async function () {
                const mRes = {
