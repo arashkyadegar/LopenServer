@@ -5,30 +5,9 @@ const { ProductWbBusConc } = require('../dist/app/productWeb/productWbBus');
 const { ProductWbDalConc } = require('../dist/app/productWeb/productWbDal');
 const { ProductSchema } = require('../dist/app/product/productEntity');
 const { ResponseStatus } = require('../dist/app/utility/errorStatus');
-describe("productWbRouterClass Unit Tests", function () {
-     describe("findAll", function () {
-          it("1- findAll should response 200", async function () {
-               const mRes = {
-                    status: sinon.stub().returnsThis(),
-                    send: sinon.stub(),
-               };
-
-               const mReq = {};
-
-               const bus = new ProductWbBusConc(new ProductWbDalConc());
-               sinon.stub(bus, "findAll").returns([]);
-
-               const tester = new ProductWbRouterClass(bus);
-               //sinon.stub(LikeEntitySchema, "validate").returns({ error: true });
-               const response = await tester.findAll(mReq, mRes, (e) => { console.log(e) });
-               expect(response).to.have.property('status').equal(200);
-               bus.findAll.restore(); //don't forget to restore
-               //LikeEntitySchema.validate.restore(); //don't forget to restore
-          });
-
-
-
-          it("2- findOneProduct should response 400 if webuserId is undefiend", async function () {
+describe("productWbRouterClass", function () {
+     describe("findOne", async function(){
+          it("1- findOne should response 400 if webuserId is undefiend", async function () {
 
                const mRes = {
                     status: sinon.stub().returnsThis(),
@@ -57,7 +36,7 @@ describe("productWbRouterClass Unit Tests", function () {
           });
 
 
-          it("3- findOneProduct should response 400 if is undefiend", async function () {
+          it("2- findOne should response 400 if is undefiend", async function () {
 
                const mRes = {
                     status: sinon.stub().returnsThis(),
@@ -86,7 +65,7 @@ describe("productWbRouterClass Unit Tests", function () {
           });
 
 
-          it("4- findOneProduct should response 400 if is entity is invalid", async function () {
+          it("3- findOne should response 400 if is entity is invalid", async function () {
 
                const mRes = {
                     status: sinon.stub().returnsThis(),
@@ -116,7 +95,7 @@ describe("productWbRouterClass Unit Tests", function () {
 
 
 
-          it("4- findOneProduct should response 200 if is everything is ok", async function () {
+          it("4- findOne should response 200 if is everything is ok", async function () {
 
                const mRes = {
                     status: sinon.stub().returnsThis(),
@@ -142,6 +121,26 @@ describe("productWbRouterClass Unit Tests", function () {
                expect(response).to.have.property('status').equal(200);
                bus.findOne.restore(); //don't forget to restore
                ProductSchema.validate.restore(); //don't forget to restore
+          });
+     })
+     describe("findAll", function () {
+          it("1- findAll should response 200", async function () {
+               const mRes = {
+                    status: sinon.stub().returnsThis(),
+                    send: sinon.stub(),
+               };
+
+               const mReq = {};
+
+               const bus = new ProductWbBusConc(new ProductWbDalConc());
+               sinon.stub(bus, "findAll").returns([]);
+
+               const tester = new ProductWbRouterClass(bus);
+               //sinon.stub(LikeEntitySchema, "validate").returns({ error: true });
+               const response = await tester.findAll(mReq, mRes, (e) => { console.log(e) });
+               expect(response).to.have.property('status').equal(200);
+               bus.findAll.restore(); //don't forget to restore
+               //LikeEntitySchema.validate.restore(); //don't forget to restore
           });
      });
 });
