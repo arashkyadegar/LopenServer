@@ -25,7 +25,7 @@ ProductRouter.get("/:id", async function (req, res, next) {
   try {
     const postBus = new ProductBusConc(new ProductDalConc());
     const router = new ProductRouterClass(postBus);
-    const result = await router.findOneProduct(req, res, next);
+    const result = await router.findOne(req, res, next);
     return res.status(result.status).send(result.message);
   } catch (err: any) {
     const logger = new ProductRouterLogger();
@@ -51,7 +51,7 @@ ProductRouter.post("/", async function (req, res, next) {
   try {
     const postBus = new ProductBusConc(new ProductDalConc());
     const router = new ProductRouterClass(postBus);
-    const result = await router.createOneProduct(req, res, next);
+    const result = await router.createOne(req, res, next);
     return res.status(result.status).send(result.message);
   } catch (err: any) {
     const logger = new ProductRouterLogger();
@@ -64,7 +64,7 @@ ProductRouter.put("/:id", async function (req, res, next) {
   try {
     const postBus = new ProductBusConc(new ProductDalConc());
     const router = new ProductRouterClass(postBus);
-    const result = await router.updateOneProduct(req, res, next);
+    const result = await router.updateOne(req, res, next);
     return res.status(result.status).send(result.message);
   } catch (err: any) {
     const logger = new ProductRouterLogger();
