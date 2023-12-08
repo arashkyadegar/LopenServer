@@ -15,7 +15,7 @@ SiteInfoRouter.put("/", async function (req, res, next) {
   try {
     const bus = new SiteInfoBusConc(new SiteInfoDalConc());
     const router = new SiteInfoRouterClass(bus);
-    const result = await router.updateOneSiteInfo(req, res, next);
+    const result = await router.updateOne(req, res, next);
 
     return res.status(200).send(result);
   } catch (err: any) {
@@ -29,7 +29,7 @@ SiteInfoRouter.get("/", async function (req, res, next) {
   try {
     const bus = new SiteInfoBusConc(new SiteInfoDalConc());
     const router = new SiteInfoRouterClass(bus);
-    const result = await router.fineOneSiteInfo(req, res, next);
+    const result = await router.findOne(req, res, next);
     return res.status(200).send(result);
   } catch (err: any) {
     const logger = new SiteInfoRouterLogger();

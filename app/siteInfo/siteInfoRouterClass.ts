@@ -11,7 +11,7 @@ export class SiteInfoRouterClass {
     this.logger = new SiteInfoRouterClassLogger();
   }
 
-  async updateOneSiteInfo(req, res, next) {
+  async updateOne(req, res, next) {
     let result;
     const siteInfoEntity = req.body as SiteInfoEntity;
     const { error } = SiteInfoSchema.validate(siteInfoEntity);
@@ -30,7 +30,7 @@ export class SiteInfoRouterClass {
     }
   }
 
-  async fineOneSiteInfo(req, res, next): Promise<any> {
+  async findOne(req, res, next): Promise<any> {
     let result;
       result = await this.bus.findOne("1");
       return {
