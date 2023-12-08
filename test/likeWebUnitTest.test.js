@@ -5,7 +5,7 @@ const { LikeWbBusConc } = require('../dist/app/likeWeb/likeWbBus');
 const { LikeWbDalConc } = require('../dist/app/likeWeb/likeWbDal');
 const { LikeEntitySchema } = require('../dist/app/like/likeEntity');
 const { ResponseStatus } = require('../dist/app/utility/errorStatus');
-describe("LikeWbRouterClass Unit Tests", function () {
+describe("LikeWbRouterClass", function () {
      describe("createOneLike", function () {
           it("1- createOneLike should response 400 if validation is fails", async function () {
                const mRes = {
