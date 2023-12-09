@@ -6,7 +6,7 @@ const { SiteInfoDalConc } = require('../dist/app/siteInfo/siteInfoDal');
 const { SiteInfoSchema } = require('../dist/app/siteInfo/siteInfoEntity');
 const { ResponseStatus } = require('../dist/app/utility/errorStatus');
 const { array } = require('joi');
-//npm test -- -g "siteInfoRouterClass"
+//to run ==> npm test -- -g "siteInfoRouterClass"
 describe("siteInfoRouterClass", function () {
      describe("findOne", function () {
           it("1- findOne should response 200", async function () {
