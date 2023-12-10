@@ -61,7 +61,7 @@ export class ProductRouterClass {
     let result;
     if (req.params.id === undefined) {
       const errorResponse = `validation failed. id is not provided`;
-      this.logger.logError(errorResponse, "findOneProduct");
+      this.logger.logError(errorResponse, "findOne");
       return {
         status: ResponseStatus.BAD_REQUEST,
         message: errorResponse,
@@ -70,7 +70,7 @@ export class ProductRouterClass {
 
     if (!validator.isMongoId(req.params.id.toString())) {
       const errorResponse = `validation failed. id is not valid`;
-      this.logger.logError(errorResponse, "findOneProduct");
+      this.logger.logError(errorResponse, "findOne");
       return {
         status: ResponseStatus.BAD_REQUEST,
         message: errorResponse,
@@ -82,7 +82,7 @@ export class ProductRouterClass {
 
     if (result === undefined) {
       const errorResponse = `item not found.`;
-      this.logger.logError(errorResponse, "findOneProduct");
+      this.logger.logError(errorResponse, "findOne");
       return {
         status: ResponseStatus.NOT_FOUND,
         message: errorResponse,
@@ -100,7 +100,7 @@ export class ProductRouterClass {
 
     if (req.params.id === undefined) {
       const errorResponse = `validation failed. id is not provided`;
-      this.logger.logError(errorResponse, "updateOneProduct");
+      this.logger.logError(errorResponse, "updateOne");
       return {
         status: ResponseStatus.BAD_REQUEST,
         message: errorResponse,
@@ -109,7 +109,7 @@ export class ProductRouterClass {
 
     if (!validator.isMongoId(req.params.id.toString())) {
       const errorResponse = `validation failed. id is not valid`;
-      this.logger.logError(errorResponse, "updateOneProduct");
+      this.logger.logError(errorResponse, "updateOne");
       return {
         status: ResponseStatus.BAD_REQUEST,
         message: errorResponse,
@@ -121,7 +121,7 @@ export class ProductRouterClass {
     const { error } = ProductSchema.validate(ProductEntity);
     if (error) {
       const errorResponse = `validation failed. errors: ${error} `;
-      this.logger.logError(errorResponse, "updateOneProduct");
+      this.logger.logError(errorResponse, "updateOne");
       return {
         message: errorResponse,
         status: ResponseStatus.BAD_REQUEST,
@@ -132,7 +132,7 @@ export class ProductRouterClass {
 
     if (result === undefined) {
       const errorResponse = `item not found.`;
-      this.logger.logError(errorResponse, "updateOneProduct");
+      this.logger.logError(errorResponse, "updateOne");
       return {
         status: ResponseStatus.NOT_FOUND,
         message: errorResponse,
@@ -149,7 +149,7 @@ export class ProductRouterClass {
     const { error } = ProductSchema.validate(ProductEntity);
     if (error) {
       const errorResponse = `validation failed. errors: ${error} `;
-      this.logger.logError(errorResponse, "updateOneProduct");
+      this.logger.logError(errorResponse, "createOne");
       return {
         message: errorResponse,
         status: ResponseStatus.BAD_REQUEST,
