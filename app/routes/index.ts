@@ -7,6 +7,7 @@ const LikeWbRouter = require("../likeWeb/likeWb");
 const ScoreWbRouter = require("../scoreWeb/scoreWb");
 const FaqRouter = require("../faq/faq");
 const FaqWbRouter = require("../faqWeb/faqWb");
+const FactorRouter = require("../factor/factor")
 module.exports = function (app) {
   app.use("/products", ProductRouter);
   app.use("/wbproducts", ProductWbRouter);
@@ -15,4 +16,5 @@ module.exports = function (app) {
   app.use("/wbscores", ScoreWbRouter);
   app.use("/faqs", FaqRouter);
   app.use("/wbfaqs", FaqWbRouter);
+  app.use("/factors", FactorRouter);
 };
