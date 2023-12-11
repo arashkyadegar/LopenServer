@@ -57,9 +57,8 @@ describe("ScoreWbRouterClass", function () {
                const tester = new ScoreWbRouterClass(bus);
                //sinon.stub(ScoreSchema, "validate").returns({ error: true });
                const response = await tester.updateOneScore(mReq, mRes, (e) => { console.log(e) });
-               console.log(response);
                expect(response).to.have.property('status').equal(400);
-              // expect(response).to.have.property('message').equal('validation failed. id is not valid');
+               expect(response).to.have.property('message').equal('validation failed. id is not valid');
 
                bus.updateOneScore.restore(); //don't forget to restore
                //ScoreSchema.validate.restore(); //don't forget to restore
