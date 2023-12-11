@@ -44,16 +44,21 @@ export class ProductWbRouterClass {
     let result;
     let wbuserId: string = "";
     if (req.query.wbuserId != undefined) {
-      if (
-        !validator.isMongoId(validator.escape(req.query.wbuserId.toString()))
-      ) {
-        const errorResponse = `validation failed. userId is not valid`;
+      if (!validator.isMongoId(validator.escape(req.query.wbuserId.toString()))) {
+        const errorResponse = `validation failed. wbuserId is not valid`;
         this.logger.logError(errorResponse, "findOneProduct");
         return {
           status: ResponseStatus.BAD_REQUEST,
           message: errorResponse,
         };
       }
+    }else{
+      const errorResponse = `validation failed. wbuserId is not provided`;
+      this.logger.logError(errorResponse, "findOneProduct");
+      return {
+        status: ResponseStatus.BAD_REQUEST,
+        message: errorResponse,
+      };
     }
 
     if (req.params.id === undefined) {
