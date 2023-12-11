@@ -48,6 +48,8 @@ describe("FaqRouterClass", function () {
                //sinon.stub(LikeEntitySchema, "validate").returns({ error: true });
                const response = await tester.deleteOne(mReq, mRes, (e) => { console.log(e) });
                expect(response).to.have.property('status').equal(400);
+               expect(response).to.have.property('message').equal('validation failed. id is not provided');
+
                bus.deleteOne.restore(); //don't forget to restore
                //LikeEntitySchema.validate.restore(); //don't forget to restore
           });
@@ -70,6 +72,8 @@ describe("FaqRouterClass", function () {
                //sinon.stub(LikeEntitySchema, "validate").returns({ error: true });
                const response = await tester.deleteOne(mReq, mRes, (e) => { console.log(e) });
                expect(response).to.have.property('status').equal(400);
+               expect(response).to.have.property('message').equal('validation failed. id is not valid');
+
                bus.deleteOne.restore(); //don't forget to restore
                //LikeEntitySchema.validate.restore(); //don't forget to restore
           });
@@ -120,12 +124,14 @@ describe("FaqRouterClass", function () {
                //sinon.stub(LikeEntitySchema, "validate").returns({ error: true });
                const response = await tester.findOne(mReq, mRes, (e) => { console.log(e) });
                expect(response).to.have.property('status').equal(400);
+               expect(response).to.have.property('message').equal('validation failed. id is not provided');
+
                bus.findOne.restore(); //don't forget to restore
                //LikeEntitySchema.validate.restore(); //don't forget to restore
           });
 
 
-          it("2- findOne should response 400 if id is undefined", async function () {
+          it("2- findOne should response 400 if id is not valid", async function () {
                const mRes = {
                     status: sinon.stub().returnsThis(),
                     send: sinon.stub(),
@@ -142,6 +148,8 @@ describe("FaqRouterClass", function () {
                //sinon.stub(LikeEntitySchema, "validate").returns({ error: true });
                const response = await tester.findOne(mReq, mRes, (e) => { console.log(e) });
                expect(response).to.have.property('status').equal(400);
+               expect(response).to.have.property('message').equal(`validation failed. id is not valid`);
+
                bus.findOne.restore(); //don't forget to restore
                //LikeEntitySchema.validate.restore(); //don't forget to restore
           });
@@ -220,6 +228,7 @@ describe("FaqRouterClass", function () {
                //sinon.stub(LikeEntitySchema, "validate").returns({ error: true });
                const response = await tester.updateOne(mReq, mRes, (e) => { console.log(e) });
                expect(response).to.have.property('status').equal(400);
+               expect(response).to.have.property('message').equal(`validation failed. id is not provided`);
                bus.updateOne.restore(); //don't forget to restore
                //LikeEntitySchema.validate.restore(); //don't forget to restore
           });
@@ -246,10 +255,11 @@ describe("FaqRouterClass", function () {
                //sinon.stub(LikeEntitySchema, "validate").returns({ error: true });
                const response = await tester.updateOne(mReq, mRes, (e) => { console.log(e) });
                expect(response).to.have.property('status').equal(400);
+               expect(response).to.have.property('message').equal(`validation failed. id is not valid`);
+
                bus.updateOne.restore(); //don't forget to restore
                //LikeEntitySchema.validate.restore(); //don't forget to restore
           });
-
 
           it("3- updateOne should response 400 if entity is not valid", async function () {
                const mRes = {
