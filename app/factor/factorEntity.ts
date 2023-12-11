@@ -29,7 +29,7 @@ export class FactorEntity implements IFactor {
 
 export const FactorSchema = Joi.object({
   _id: Joi.objectId().allow(""),
-  factorNumber: Joi.string(),
+  factorNumber: Joi.string().allow(""),
   webUserID: Joi.string().allow(""),
   refCode: Joi.string().allow(""),
   factorContent: Joi.string().allow(""),
@@ -41,5 +41,5 @@ export const FactorSchema = Joi.object({
 });
 
 module.exports = {
-  FactorEntity,
+  FactorEntity,FactorSchema
 };
