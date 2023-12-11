@@ -9,7 +9,7 @@ export class IScore {
 
 export class ScoreEntity extends IScore {}
 
-export const ScoreEntitySchema = Joi.object({
+export const ScoreSchema = Joi.object({
   _id: Joi.string(),
   wbuserId: Joi.string(),
   productId: Joi.string(),
@@ -18,6 +18,6 @@ export const ScoreEntitySchema = Joi.object({
 });
 
 module.exports = {
-  ScoreEntitySchema,
+  ScoreSchema,
   ScoreEntity,
 };
