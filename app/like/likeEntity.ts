@@ -11,9 +11,9 @@ export class LikeEntity extends ILike {
 }
 
 export const LikeEntitySchema = Joi.object({
-    _id: Joi.string(),
-    wbuserId: Joi.string(),
-    productId: Joi.string(),
+    _id: Joi.string().allow(''),
+    wbuserId: Joi.objectId().allow(""),
+    productId: Joi.objectId().allow(""),
     date: Joi.date().timestamp().allow(''),
   });
 
