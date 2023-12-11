@@ -5,6 +5,7 @@ const { LikeWbBusConc } = require('../dist/app/likeWeb/likeWbBus');
 const { LikeWbDalConc } = require('../dist/app/likeWeb/likeWbDal');
 const { LikeEntitySchema } = require('../dist/app/like/likeEntity');
 const { ResponseStatus } = require('../dist/app/utility/errorStatus');
+//to run ==>npm test -- -g "LikeWbRouterClass"
 describe("LikeWbRouterClass", function () {
      describe("createOneLike", function () {
           it("1- createOneLike should response 400 if validation is fails", async function () {
@@ -15,9 +16,9 @@ describe("LikeWbRouterClass", function () {
 
                const mReq = {
                     body: {
-                         wbuserId: "6570d189f89a",
-                         productId: "65703b21373e5fc251659c8a",
-                         date: ""
+                         // wbuserId: "6570d189f89acf87b5a57ba3",
+                         // productId: "65703b21373e5fc251659c8a",
+                         // date: ""
                     }
                };
 
@@ -43,9 +44,9 @@ describe("LikeWbRouterClass", function () {
 
                const mReq = {
                     body: {
-                         wbuserId: "6570d189f89acf87b5a57ba3",
-                         productId: "65703b21373e5fc251659c8a",
-                         date: ""
+                         // wbuserId: "6570d189f89acf87b5a57ba3",
+                         // productId: "65703b21373e5fc251659c8a",
+                         // date: ""
                     }
                };
 
