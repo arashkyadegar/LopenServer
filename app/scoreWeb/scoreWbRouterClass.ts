@@ -1,5 +1,5 @@
 import { ScoreWbRouterClassLogger } from "../logger/scoreWbLogger";
-import { IScore, ScoreEntitySchema } from "../score/scoreEntity";
+import { IScore, ScoreSchema } from "../score/scoreEntity";
 import { ResponseStatus } from "../utility/errorStatus";
 import { ScoreWbBus } from "./scoreWbBus";
 import validator from "validator";
@@ -34,7 +34,7 @@ export class ScoreWbRouterClass {
       };
     }
 
-    const { error } = ScoreEntitySchema.validate(scoreEntity);
+    const { error } = ScoreSchema.validate(scoreEntity);
     if (error) {
       this.logger.logError(error, "createOneScore");
       return {
