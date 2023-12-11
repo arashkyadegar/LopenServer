@@ -7,12 +7,6 @@ export const FactorRouter = express.Router();
 
 FactorRouter.get("/", async function (req, res, next) {
   try {
-    const crypto = require("crypto").webcrypto;
-
-    let a = new Uint8Array(3);
-    let nu = crypto.getRandomValues(a);
-    console.log(nu);
-    console.log(nu.toString().replaceAll(',',''));
     const bus = new FactorBusConc(new FactorDalConc());
     const router = new FactorRouterClass(bus);
     const result = await router.findAll(req, res, next);
