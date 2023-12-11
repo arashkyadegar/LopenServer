@@ -15,7 +15,6 @@ export class LikeWbRouterClass {
     let result;
     const likeEntity = req.body as ILike;
     const { error } = LikeEntitySchema.validate(likeEntity);
-    console.log(error);
     if (error) {
       this.logger.logError(error, "deleteOneLike");
       return {
@@ -35,7 +34,6 @@ export class LikeWbRouterClass {
     let result;
     const likeEntity = req.body as ILike;
     const { error } = LikeEntitySchema.validate(likeEntity);
-    console.log(error);
     if (error) {
       this.logger.logError(error, "createOneLike");
       return {
