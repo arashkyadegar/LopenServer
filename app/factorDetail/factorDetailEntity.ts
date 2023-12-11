@@ -3,8 +3,8 @@ Joi.objectId = require("joi-objectid")(Joi);
 
 export interface IFactorDetail {
   _id: string;
-  factorID: number;
-  productID: number;
+  factorId: number;
+  productId: number;
   unitPrice: number;
   discount: number;
   count: number;
@@ -14,8 +14,8 @@ export interface IFactorDetail {
 
 export class FactorDetailEntity {
   _id: string = "";
-  factorID: number = 0;
-  productID: number = 0;
+  factorId: number = 0;
+  productId: number = 0;
   unitPrice: number = 0;
   discount: number = 0;
   count: number = 0;
@@ -26,8 +26,8 @@ export class FactorDetailEntity {
 
 export const FactorDetailSchema = Joi.object({
   _id: Joi.objectId().allow(""),
-  factorID: Joi.number(),
-  productID: Joi.number(),
+  factorId:Joi.objectId().allow(""),
+  productId: Joi.objectId().allow(""),
   unitPrice: Joi.number(),
   discount: Joi.number(),
   count: Joi.number(),
