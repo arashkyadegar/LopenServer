@@ -5,7 +5,7 @@ const { ProductBusConc } = require('../dist/app/product/productBus');
 const { ProductDalConc } = require('../dist/app/product/productDal');
 const { ProductSchema } = require('../dist/app/product/productEntity');
 const { ResponseStatus } = require('../dist/app/utility/errorStatus');
-
+//to run ==> npm test -- -g "productRouterClass"
 describe("productRouterClass", function () {
      describe("findAll", function () {
           it("1- findAll should response 200", async function () {
@@ -47,6 +47,8 @@ describe("productRouterClass", function () {
                //sinon.stub(LikeEntitySchema, "validate").returns({ error: true });
                const response = await tester.findOne(mReq, mRes, (e) => { console.log(e) });
                expect(response).to.have.property('status').equal(400);
+               expect(response).to.have.property('message').equal('validation failed. id is not provided');
+
                bus.findOne.restore(); //don't forget to restore
                //LikeEntitySchema.validate.restore(); //don't forget to restore
           });
@@ -69,6 +71,8 @@ describe("productRouterClass", function () {
                //sinon.stub(LikeEntitySchema, "validate").returns({ error: true });
                const response = await tester.findOne(mReq, mRes, (e) => { console.log(e) });
                expect(response).to.have.property('status').equal(400);
+               expect(response).to.have.property('message').equal(`validation failed. id is not valid`);
+
                bus.findOne.restore(); //don't forget to restore
                //LikeEntitySchema.validate.restore(); //don't forget to restore
           });
@@ -163,7 +167,7 @@ describe("productRouterClass", function () {
           });
      });
      describe("updateOne",function(){
-          it("1- updateOne should response 400 if id is undefiend",async function(){
+          it("1- updateOne should response 400 if id is not defined",async function(){
                const mRes = {
                     status: sinon.stub().returnsThis(),
                     send: sinon.stub(),
@@ -185,6 +189,8 @@ describe("productRouterClass", function () {
                //sinon.stub(LikeEntitySchema, "validate").returns({ error: true });
                const response = await tester.updateOne(mReq, mRes, (e) => { console.log(e) });
                expect(response).to.have.property('status').equal(400);
+               expect(response).to.have.property('message').equal(`validation failed. id is not provided`);
+
                bus.updateOne.restore(); //don't forget to restore
                //LikeEntitySchema.validate.restore(); //don't forget to restore
           });
@@ -212,6 +218,8 @@ describe("productRouterClass", function () {
                //sinon.stub(LikeEntitySchema, "validate").returns({ error: true });
                const response = await tester.updateOne(mReq, mRes, (e) => { console.log(e) });
                expect(response).to.have.property('status').equal(400);
+               expect(response).to.have.property('message').equal(`validation failed. id is not valid`);
+
                bus.updateOne.restore(); //don't forget to restore
                //LikeEntitySchema.validate.restore(); //don't forget to restore
           });
