@@ -4,12 +4,12 @@ Joi.objectId = require("joi-objectid")(Joi);
 export interface IFactor {
   _id: string;
   factorNumber: string;
-  webUserID: string;
+  wbuserId: string;
   refCode: string;
   factorContent: string;
   additionalInfo: string;
   price: number;
-  statusID: number;
+  statusId: number;
   paymentType: number;
   date: Date;
 }
@@ -17,12 +17,12 @@ export interface IFactor {
 export class FactorEntity implements IFactor {
   _id: string = "";
   factorNumber: string = "";
-  webUserID: string = "";
+  wbuserId: string = "";
   refCode: string = "";
   factorContent: string = "";
   additionalInfo: string = "";
   price: number = 0;
-  statusID: number = 0;
+  statusId: number = 0;
   paymentType: number = 0;
   date!: Date;
 }
@@ -30,12 +30,12 @@ export class FactorEntity implements IFactor {
 export const FactorSchema = Joi.object({
   _id: Joi.objectId().allow(""),
   factorNumber: Joi.string().allow(""),
-  webUserID: Joi.string().allow(""),
+  wbuserId: Joi.string().allow(""),
   refCode: Joi.string().allow(""),
   factorContent: Joi.string().allow(""),
   additionalInfo: Joi.string().allow(""),
   price: Joi.number(),
-  statusID: Joi.number(),
+  statusId: Joi.number(),
   paymentType: Joi.number(),
   date: Joi.string().allow(""),
 });

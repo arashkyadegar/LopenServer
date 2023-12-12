@@ -18,6 +18,7 @@ export class FactorDalConc implements FactorDal {
     this.logger = new FactorDalLogger();
   }
   async updateOne(id: string, entity: FactorEntity): Promise<boolean> {
+
      let result;
      try {
        const objectId = new ObjectId(id);
@@ -30,12 +31,12 @@ export class FactorDalConc implements FactorDal {
            {
              $set: {
                factorNumber:validator.escape( entity.factorNumber),
-               webUserID:validator.escape( entity.webUserID),
+               wbuserId:validator.escape( entity.wbuserId),
                refCode:validator.escape( entity.refCode),
                factorContent:validator.escape( entity.factorContent),
                additionalInfo:validator.escape( entity.additionalInfo),
                price: entity.price,
-               statusID: entity.statusID,
+               statusId: entity.statusId,
                paymentType: entity.paymentType,
                date: Date.now(),
              },
@@ -48,17 +49,7 @@ export class FactorDalConc implements FactorDal {
      return result;
   }
   async findOne(id: string): Promise<FactorEntity> {
-    let result;
-    try {
-      const objectId = new ObjectId(id);
-      const collection = MongoDb.dbconnect("factors");
-      await collection.then((factors) => {
-        result = factors.find({ _id: objectId }).toArray();
-      });
-    } catch (err: any) {
-      this.logger.logError(err, "findOne");
-    }
-    return result;
+    throw new Error("Method not implemented.");
   }
   async createOne(entity: FactorEntity): Promise<boolean> {
     let result;
@@ -67,12 +58,12 @@ export class FactorDalConc implements FactorDal {
       await collection.then((factors) => {
         result = factors.insertOne({
           factorNumber:validator.escape( entity.factorNumber),
-          webUserID:validator.escape( entity.webUserID),
+          wbuserId:validator.escape( entity.wbuserId),
           refCode:validator.escape( entity.refCode),
           factorContent:validator.escape( entity.factorContent),
           additionalInfo:validator.escape( entity.additionalInfo),
           price:entity.price,
-          statusID: entity.statusID,
+          statusId: entity.statusId,
           paymentType: entity.paymentType,
           date: Date.now(),
         });

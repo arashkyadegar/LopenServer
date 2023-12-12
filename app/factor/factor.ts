@@ -20,8 +20,8 @@ FactorRouter.get("/", async function (req, res, next) {
 
 FactorRouter.get("/:id", async function (req, res, next) {
   try {
-    const postBus = new FactorBusConc(new FactorDalConc());
-    const router = new FactorRouterClass(postBus);
+    const bus = new FactorBusConc(new FactorDalConc());
+    const router = new FactorRouterClass(bus);
     const result = await router.findOne(req, res, next);
     return res.status(result.status).send(result.message);
   } catch (err: any) {
@@ -33,8 +33,8 @@ FactorRouter.get("/:id", async function (req, res, next) {
 
 FactorRouter.post("/", async function (req, res, next) {
   try {
-    const postBus = new FactorBusConc(new FactorDalConc());
-    const router = new FactorRouterClass(postBus);
+    const bus = new FactorBusConc(new FactorDalConc());
+    const router = new FactorRouterClass(bus);
     const result = await router.createOne(req, res, next);
     return res.status(result.status).send(result.message);
   } catch (err: any) {
@@ -46,8 +46,8 @@ FactorRouter.post("/", async function (req, res, next) {
 
 FactorRouter.put("/:id", async function (req, res, next) {
   try {
-    const postBus = new FactorBusConc(new FactorDalConc());
-    const router = new FactorRouterClass(postBus);
+    const bus = new FactorBusConc(new FactorDalConc());
+    const router = new FactorRouterClass(bus);
     const result = await router.updateOne(req, res, next);
     return res.status(result.status).send(result.message);
   } catch (err: any) {
