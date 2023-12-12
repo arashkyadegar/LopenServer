@@ -6,7 +6,7 @@ export interface FactorDetailWbBus {
   //findOne(id: string): Promise<FactorDetailEntity>;
   createOne(entity: FactorDetailEntity): Promise<boolean>;
   deleteOne(id: string): Promise<boolean>;
-  findAll(factorId: string): Promise<FactorDetailEntity[]>;
+  findAllByFactorId(factorId: string): Promise<FactorDetailEntity[]>;
 }
 
 export class FactorDetailWbBusConc implements FactorDetailWbBus {
@@ -26,8 +26,8 @@ export class FactorDetailWbBusConc implements FactorDetailWbBus {
     const result = await this.db.deleteOne(id);
     return result;
   }
-  async findAll(factorId: string): Promise<FactorDetailEntity[]> {
-     const result = await this.db.findAll(factorId);
+  async findAllByFactorId(factorId: string): Promise<FactorDetailEntity[]> {
+     const result = await this.db.findAllByFactorId(factorId);
      return result;
   }
 }

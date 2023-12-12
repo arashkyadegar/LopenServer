@@ -52,11 +52,11 @@ export class FactorDetailWbRouterClass {
     };
   }
 
-  async findAll(req, res, next) {
+  async findAllByFactorId(req, res, next) {
     let result;
     if (req.params.fid === undefined) {
-      const errorResponse = `validation failed. id is not provided`;
-      this.logger.logError(errorResponse, "findOne");
+      const errorResponse = `validation failed. factorId is not provided`;
+      this.logger.logError(errorResponse, "findAllByFactorId");
       return {
         status: ResponseStatus.BAD_REQUEST,
         message: errorResponse,
@@ -64,8 +64,8 @@ export class FactorDetailWbRouterClass {
     }
 
     if (!validator.isMongoId(req.params.fid.toString())) {
-      const errorResponse = `validation failed. id is not valid`;
-      this.logger.logError(errorResponse, "findOne");
+      const errorResponse = `validation failed. factorId is not valid`;
+      this.logger.logError(errorResponse, "findAllByFactorId");
       return {
         status: ResponseStatus.BAD_REQUEST,
         message: errorResponse,
@@ -73,11 +73,11 @@ export class FactorDetailWbRouterClass {
     }
 
     let factorId = req.params.fid;
-    result = await this.bus.findAll(factorId);
+    result = await this.bus.findAllByFactorId(factorId);
 
     if (result === undefined) {
       const errorResponse = `item not found.`;
-      this.logger.logError(errorResponse, "findOne");
+      this.logger.logError(errorResponse, "findAllByFactorId");
       return {
         status: ResponseStatus.NOT_FOUND,
         message: errorResponse,

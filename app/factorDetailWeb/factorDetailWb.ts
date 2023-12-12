@@ -9,7 +9,7 @@ FactorDetailWbRouter.get("/:fid", async function (req, res, next) {
   try {
     const bus = new FactorDetailWbBusConc(new FactorDetailWbDalConc());
     const router = new FactorDetailWbRouterClass(bus);
-    const result = await router.findAll(req, res, next);
+    const result = await router.findAllByFactorId(req, res, next);
     return res.status(result.status).send(result.message);
   } catch (err: any) {
     const logger = new FactorDetailWbRouterClassLogger();
@@ -22,7 +22,7 @@ FactorDetailWbRouter.delete("/:id", async function (req, res, next) {
   try {
     const bus = new FactorDetailWbBusConc(new FactorDetailWbDalConc());
     const router = new FactorDetailWbRouterClass(bus);
-    const result = await router.findAll(req, res, next);
+    const result = await router.deleteOne(req, res, next);
     return res.status(result.status).send(result.message);
   } catch (err: any) {
     const logger = new FactorDetailWbRouterClassLogger();

@@ -6,7 +6,7 @@ export interface FactorDetailWbDal {
   updateOne(id: string, entity: FactorDetailEntity): Promise<boolean>;
   createOne(entity: FactorDetailEntity): Promise<boolean>;
   deleteOne(id: string): Promise<boolean>;
-  findAll(factorId: string): Promise<FactorDetailEntity[]>;
+  findAllByFactorId(factorId: string): Promise<FactorDetailEntity[]>;
 }
 export class FactorDetailWbDalConc implements FactorDetailWbDal {
   logger: any;
@@ -74,7 +74,7 @@ export class FactorDetailWbDalConc implements FactorDetailWbDal {
     }
     return result;
   }
-  async findAll(factorId: string): Promise<FactorDetailEntity[]> {
+  async findAllByFactorId(factorId: string): Promise<FactorDetailEntity[]> {
     let result;
     try {
       let factorObjectId = new ObjectId(factorId);
