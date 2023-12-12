@@ -21,8 +21,8 @@ FaqRouter.get("/", async function (req, res, next) {
 
 FaqRouter.get("/:id", async function (req, res, next) {
   try {
-    const postBus = new FaqBusConc(new FaqDalConc());
-    const router = new FaqRouterClass(postBus);
+    const bus = new FaqBusConc(new FaqDalConc());
+    const router = new FaqRouterClass(bus);
     const result = await router.findOne(req, res, next);
     return res.status(result.status).send(result.message);
   } catch (err: any) {
@@ -34,21 +34,21 @@ FaqRouter.get("/:id", async function (req, res, next) {
 
 FaqRouter.delete("/:id", async function (req, res, next) {
   try {
-    const postBus = new FaqBusConc(new FaqDalConc());
-    const router = new FaqRouterClass(postBus);
+    const bus = new FaqBusConc(new FaqDalConc());
+    const router = new FaqRouterClass(bus);
     const result = await router.deleteOne(req, res, next);
     return res.status(result.status).send(result.message);
   } catch (err: any) {
     const logger = new FaqRouterLogger();
-    logger.logError(err, "get /:id");
+    logger.logError(err, "delete /:id");
     next(err);
   }
 });
 
 FaqRouter.post("/", async function (req, res, next) {
   try {
-    const postBus = new FaqBusConc(new FaqDalConc());
-    const router = new FaqRouterClass(postBus);
+    const bus = new FaqBusConc(new FaqDalConc());
+    const router = new FaqRouterClass(bus);
     const result = await router.createOne(req, res, next);
     return res.status(result.status).send(result.message);
   } catch (err: any) {
@@ -60,8 +60,8 @@ FaqRouter.post("/", async function (req, res, next) {
 
 FaqRouter.put("/:id", async function (req, res, next) {
   try {
-    const postBus = new FaqBusConc(new FaqDalConc());
-    const router = new FaqRouterClass(postBus);
+    const bus = new FaqBusConc(new FaqDalConc());
+    const router = new FaqRouterClass(bus);
     const result = await router.updateOne(req, res, next);
     return res.status(result.status).send(result.message);
   } catch (err: any) {
