@@ -2,7 +2,7 @@ import { ProductEntity, ProductWbEntity } from "../product/productEntity";
 import { ProductWbDal } from "./productWbDal";
 
 export interface ProductWbBus {
-  updateOne(id: string, entity: ProductEntity): Promise<boolean>;
+  // updateOne(id: string, entity: ProductEntity): Promise<boolean>;
   findOne(id: string, wbuserId: string): Promise<ProductEntity>;
   findAll(): Promise<ProductWbEntity[]>;
 }
@@ -47,11 +47,6 @@ export class ProductWbBusConc implements ProductWbBus {
     //check if user has liked the product or not////////////end
     return result;
   }
-  async updateOne(id: string, entity: ProductEntity): Promise<boolean> {
-    const result = await this.db.updateOne("1", entity);
-    return result;
-  }
-
   calculateScore(entity: ProductWbEntity): number {
     const scoreCount = entity.scores.length;
     let totalScore = 0;

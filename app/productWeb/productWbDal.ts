@@ -4,7 +4,7 @@ import { ProductDalLogger } from "../logger/productLogger";
 import { MongoDb } from "../config/mongodb";
 var ObjectId = require("mongodb").ObjectId;
 export interface ProductWbDal {
-  updateOne(id: string, entity: ProductEntity): Promise<boolean>;
+ // updateOne(id: string, entity: ProductEntity): Promise<boolean>;
   findOne(id: string): Promise<ProductWbEntity>;
   findAll(): Promise<ProductWbEntity[]>;
 }
@@ -13,9 +13,7 @@ export class ProductWbDalConc implements ProductWbDal {
   constructor() {
     this.logger = new ProductDalLogger();
   }
-  async updateOne(id: string, entity: ProductEntity): Promise<boolean> {
-    throw new Error("Method not implemented.");
-  }
+
 
   async findOne(id: string): Promise<ProductWbEntity> {
     let result;
