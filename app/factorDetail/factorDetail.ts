@@ -10,7 +10,7 @@ FactorDetailRouter.get("/:fid", async function (req, res, next) {
   try {
     const bus = new FactorDetailBusConc(new FactorDetailDalConc());
     const router = new FactorDetailRouterClass(bus);
-    const result = await router.findAll(req, res, next);
+    const result = await router.findAllByFactorId(req, res, next);
     return res.status(result.status).send(result.message);
   } catch (err: any) {
     const logger = new FactorDetailRouterLogger();

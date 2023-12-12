@@ -12,10 +12,10 @@ export class FactorDetailRouterClass {
     this.logger = new FactorDetailRouterClassLogger();
   }
 
-  async findAll(req, res, next): Promise<any> {
+  async findAllByFactorId(req, res, next): Promise<any> {
     if (req.params.fid === undefined) {
       const errorResponse = `validation failed. factorId is not provided`;
-      this.logger.logError(errorResponse, "findOne");
+      this.logger.logError(errorResponse, "findAllByFactorId");
       return {
         status: ResponseStatus.BAD_REQUEST,
         message: errorResponse,
@@ -24,7 +24,7 @@ export class FactorDetailRouterClass {
 
     if (!validator.isMongoId(req.params.fid.toString())) {
       const errorResponse = `validation failed. factorId is not valid`;
-      this.logger.logError(errorResponse, "findOne");
+      this.logger.logError(errorResponse, "findAllByFactorId");
       return {
         status: ResponseStatus.BAD_REQUEST,
         message: errorResponse,
@@ -32,7 +32,7 @@ export class FactorDetailRouterClass {
     }
 
     let factorId = req.params.fid;
-    const result = await this.bus.findAll(factorId);
+    const result = await this.bus.findAllByFactorId(factorId);
     return {
       status: ResponseStatus.OK,
       message: result,

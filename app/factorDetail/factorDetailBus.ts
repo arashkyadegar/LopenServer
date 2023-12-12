@@ -6,7 +6,7 @@ export interface FactorDetailBus {
   //findOne(id: string): Promise<FactorDetailEntity>;
   //createOne(entity: FactorDetailEntity): Promise<boolean>;
   deleteOne(id: string): Promise<boolean>;
-  findAll(factorId: string): Promise<FactorDetailEntity[]>;
+  findAllByFactorId(factorId: string): Promise<FactorDetailEntity[]>;
 }
 
 export class FactorDetailBusConc implements FactorDetailBus {
@@ -20,8 +20,8 @@ export class FactorDetailBusConc implements FactorDetailBus {
     return result;
   }
   // route manipulation for this
-  async findAll(factorId: string): Promise<FactorDetailEntity[]> {
-    const result = await this.db.findAll(factorId);
+  async findAllByFactorId(factorId: string): Promise<FactorDetailEntity[]> {
+    const result = await this.db.findAllByFactorId(factorId);
     return result;
   }
 }

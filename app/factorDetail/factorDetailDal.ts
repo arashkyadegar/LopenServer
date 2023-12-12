@@ -4,11 +4,11 @@ import { FactorDetailEntity } from "./factorDetailEntity";
 var ObjectId = require("mongodb").ObjectId;
 
 export interface FactorDetailDal {
-  updateOne(id: string, entity: FactorDetailEntity): Promise<boolean>;
-  findOne(id: string): Promise<FactorDetailEntity>;
-  createOne(entity: FactorDetailEntity): Promise<boolean>;
+  // updateOne(id: string, entity: FactorDetailEntity): Promise<boolean>;
+  // findOne(id: string): Promise<FactorDetailEntity>;
+  // createOne(entity: FactorDetailEntity): Promise<boolean>;
   deleteOne(id: string): Promise<boolean>;
-  findAll(factorId: string): Promise<FactorDetailEntity[]>;
+  findAllByFactorId(factorId: string): Promise<FactorDetailEntity[]>;
 }
 
 export class FactorDetailDalConc implements FactorDetailDal {
@@ -17,15 +17,6 @@ export class FactorDetailDalConc implements FactorDetailDal {
     this.logger = new FactorDetailDalLogger();
   }
 
-  updateOne(id: string, entity: FactorDetailEntity): Promise<boolean> {
-    throw new Error("Method not implemented.");
-  }
-  async findOne(id: string): Promise<FactorDetailEntity> {
-    throw new Error("Method not implemented.");
-  }
-  createOne(entity: FactorDetailEntity): Promise<boolean> {
-    throw new Error("Method not implemented.");
-  }
   async deleteOne(id: string): Promise<boolean> {
     let result;
     try {
@@ -42,7 +33,7 @@ export class FactorDetailDalConc implements FactorDetailDal {
     }
     return result;
   }
-  async findAll(factorId: string): Promise<FactorDetailEntity[]> {
+  async findAllByFactorId(factorId: string): Promise<FactorDetailEntity[]> {
     let result;
     try {
       let factorObjectId = new ObjectId(factorId);
