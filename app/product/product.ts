@@ -1,7 +1,4 @@
 import express from "express";
-import { Base64 } from "../utility/base64";
-import jwt from "jsonwebtoken";
-import { ResponseStatus } from "../utility/errorStatus";
 import { ProductBusConc } from "./productBus";
 import { ProductDalConc } from "./productDal";
 import { ProductRouterLogger } from "../logger/productLogger";
@@ -10,8 +7,8 @@ export const ProductRouter = express.Router();
 
 ProductRouter.get("/", async function (req, res, next) {
   try {
-    const postBus = new ProductBusConc(new ProductDalConc());
-    const router = new ProductRouterClass(postBus);
+    const bus = new ProductBusConc(new ProductDalConc());
+    const router = new ProductRouterClass(bus);
     const result = await router.findAll(req, res, next);
     return res.status(result.status).send(result.message);
   } catch (err: any) {
@@ -23,8 +20,8 @@ ProductRouter.get("/", async function (req, res, next) {
 
 ProductRouter.get("/:id", async function (req, res, next) {
   try {
-    const postBus = new ProductBusConc(new ProductDalConc());
-    const router = new ProductRouterClass(postBus);
+    const bus = new ProductBusConc(new ProductDalConc());
+    const router = new ProductRouterClass(bus);
     const result = await router.findOne(req, res, next);
     return res.status(result.status).send(result.message);
   } catch (err: any) {
@@ -36,21 +33,21 @@ ProductRouter.get("/:id", async function (req, res, next) {
 
 ProductRouter.delete("/:id", async function (req, res, next) {
   try {
-    const postBus = new ProductBusConc(new ProductDalConc());
-    const router = new ProductRouterClass(postBus);
+    const bus = new ProductBusConc(new ProductDalConc());
+    const router = new ProductRouterClass(bus);
     const result = await router.deleteSoftOneProduct(req, res, next);
     return res.status(result.status).send(result.message);
   } catch (err: any) {
     const logger = new ProductRouterLogger();
-    logger.logError(err, "get /:id");
+    logger.logError(err, "delete /:id");
     next(err);
   }
 });
 
 ProductRouter.post("/", async function (req, res, next) {
   try {
-    const postBus = new ProductBusConc(new ProductDalConc());
-    const router = new ProductRouterClass(postBus);
+    const bus = new ProductBusConc(new ProductDalConc());
+    const router = new ProductRouterClass(bus);
     const result = await router.createOne(req, res, next);
     return res.status(result.status).send(result.message);
   } catch (err: any) {
@@ -62,8 +59,8 @@ ProductRouter.post("/", async function (req, res, next) {
 
 ProductRouter.put("/:id", async function (req, res, next) {
   try {
-    const postBus = new ProductBusConc(new ProductDalConc());
-    const router = new ProductRouterClass(postBus);
+    const bus = new ProductBusConc(new ProductDalConc());
+    const router = new ProductRouterClass(bus);
     const result = await router.updateOne(req, res, next);
     return res.status(result.status).send(result.message);
   } catch (err: any) {
