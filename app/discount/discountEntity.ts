@@ -10,6 +10,7 @@ export class DiscountEntity {
   _id: string = "";
   sDate!: Date;
   eDate!: Date;
+  title: string = "";
   type: number = 0;
   value: number = 0;
   productId: string = "";
@@ -20,6 +21,7 @@ export const DiscountSchema = Joi.object({
   _id: Joi.objectId().allow(""),
   sDate: Joi.string(),
   eDate: Joi.string(),
+  title: Joi.string(),
   type: Joi.number(),
   value: Joi.number(),
   productId: Joi.string().allow(""),
