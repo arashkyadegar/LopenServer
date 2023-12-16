@@ -1,3 +1,4 @@
+import { date } from "joi";
 import { DiscountDal } from "./discountDal";
 import { DiscountEntity } from "./discountEntity";
 
@@ -23,15 +24,25 @@ export class DiscountBusConc implements DiscountBus {
     return result;
   }
   async createOne(entity: DiscountEntity): Promise<boolean> {
+
+
+    const sDate = new Date(entity.sDate);
+    const edate = new Date(entity.eDate);
+    entity.sDate = sDate;
+    entity.eDate = edate;
     const result = await this.db.createOne(entity);
     return result;
   }
+
   async deleteOne(id: string): Promise<boolean> {
     const result = await this.db.deleteOne(id);
     return result;
   }
+
   async findAll(): Promise<DiscountEntity[]> {
     const result = await this.db.findAll();
     return result;
   }
+
+  async findDiscountsByDate(date: Date) {}
 }

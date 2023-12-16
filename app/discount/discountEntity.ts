@@ -14,6 +14,7 @@ export class DiscountEntity {
   type: number = 0;
   value: number = 0;
   productId: string = "";
+
   date!: Date;
 }
 
@@ -25,6 +26,7 @@ export const DiscountSchema = Joi.object({
   type: Joi.number(),
   value: Joi.number(),
   productId: Joi.string().allow(""),
+
   date: Joi.string().allow(""),
 });
 

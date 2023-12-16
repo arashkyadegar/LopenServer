@@ -138,8 +138,10 @@ export class DiscountRouterClass {
      }
      async createOne(req, res, next): Promise<any> {
        let result;
-       const DiscountEntity = req.body as DiscountEntity;
-       const { error } = DiscountSchema.validate(DiscountEntity);
+       const discountEntity = req.body as DiscountEntity;
+
+      
+       const { error } = DiscountSchema.validate(discountEntity);
        if (error) {
          const errorResponse = `validation failed. errors: ${error} `;
          this.logger.logError(errorResponse, "createOne");
@@ -148,7 +150,7 @@ export class DiscountRouterClass {
            status: ResponseStatus.BAD_REQUEST,
          };
        }
-       result = await this.bus.createOne(DiscountEntity);
+       result = await this.bus.createOne(discountEntity);
        return {
          status: ResponseStatus.OK,
          message: result,

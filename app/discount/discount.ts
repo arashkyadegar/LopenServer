@@ -1,3 +1,4 @@
+import express from "express";
 import { DiscountRouterLogger } from "../logger/discountLogger";
 import { DiscountBusConc } from "./discountBus";
 import { DiscountDalConc } from "./discountDal";
@@ -47,6 +48,7 @@ DiscountRouter.delete("/:id", async function (req, res, next) {
 DiscountRouter.post("/", async function (req, res, next) {
   try {
     const bus = new DiscountBusConc(new DiscountDalConc());
+    
     const router = new DiscountRouterClass(bus);
     const result = await router.createOne(req, res, next);
     return res.status(result.status).send(result.message);
