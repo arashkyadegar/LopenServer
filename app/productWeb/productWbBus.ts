@@ -2,6 +2,7 @@ import { date } from "joi";
 import { ProductEntity, ProductWbEntity } from "../product/productEntity";
 import { ProductWbDal } from "./productWbDal";
 import { DiscountEntity } from "../discount/discountEntity";
+import { checkLikesByUser } from "../likeWeb/likeWebUtility";
 var _ = require("lodash");
 
 export interface ProductWbBus {
@@ -49,7 +50,7 @@ export class ProductWbBusConc implements ProductWbBus {
 
     //check if user has liked the product or not
     if (wbuserId != "") {
-      result[0].liked = this.checkLikesByUser(wbuserId, result[0]);
+      result[0].liked = checkLikesByUser(wbuserId, result[0]);
     }
     //check if user has liked the product or not////////////end
     return result;
@@ -64,7 +65,6 @@ export class ProductWbBusConc implements ProductWbBus {
 
     return totalScore / scoreCount;
   }
-
   checkIfDiscountIsAllowed(discount: any): DiscountEntity[] {
     let today = new Date();
     const sd = discount.sDate.toISOString().substring(0, 10);
@@ -80,14 +80,5 @@ export class ProductWbBusConc implements ProductWbBus {
     } else {
       return [];
     }
-  }
-  checkLikesByUser(wbuserId: string, entity: ProductWbEntity): boolean {
-    let result = false;
-    entity.likes.forEach((element) => {
-      if (element.wbuserId == wbuserId) {
-        result = true;
-      }
-    });
-    return result;
   }
 }
