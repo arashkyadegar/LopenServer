@@ -9,6 +9,7 @@ const FaqRouter = require("../faq/faq");
 const FaqWbRouter = require("../faqWeb/faqWb");
 const FactorRouter = require("../factor/factor");
 const FactorDetailRouter = require("../factorDetail/factorDetail");
+const DiscountRouter = require("../discount/discount");
 module.exports = function (app) {
   app.use("/products", ProductRouter);
   app.use("/wbproducts", ProductWbRouter);
@@ -19,4 +20,5 @@ module.exports = function (app) {
   app.use("/wbfaqs", FaqWbRouter);
   app.use("/factors", FactorRouter);
   app.use("/factordetails", FactorDetailRouter);
+  app.use("/discounts", DiscountRouter);
 };
