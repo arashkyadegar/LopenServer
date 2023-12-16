@@ -9,6 +9,7 @@ export interface DiscountDal {
   createOne(entity: DiscountEntity): Promise<boolean>;
   deleteOne(id: string): Promise<boolean>;
   findAll(): Promise<DiscountEntity[]>;
+  findByProductId(productId: string): Promise<DiscountEntity[]>;
 }
 
 export class DiscountDalConc implements DiscountDal {
@@ -16,6 +17,21 @@ export class DiscountDalConc implements DiscountDal {
   constructor() {
     this.logger = new DiscountDalLogger();
   }
+
+  async findByProductId(productId: string): Promise<DiscountEntity[]> {
+    let result;
+    try {
+      const productObjectId = new ObjectId(productId);
+      const collection = MongoDb.dbconnect("discounts");
+      await collection.then((discounts) => {
+        result = discounts.find({ productId: productObjectId }).toArray();
+      });
+    } catch (err: any) {
+      this.logger.logError(err, "findByProductId");
+    }
+    return result;
+  }
+
   async updateOne(id: string, entity: DiscountEntity): Promise<boolean> {
     let result;
     try {
@@ -60,12 +76,12 @@ export class DiscountDalConc implements DiscountDal {
   }
   async createOne(entity: DiscountEntity): Promise<boolean> {
     let result;
-    let productObjectId="";
+    let productObjectId = "";
     try {
       if (entity.productId == "") {
-         productObjectId = "";
+        productObjectId = "";
       } else {
-         productObjectId = new ObjectId(entity.productId);
+        productObjectId = new ObjectId(entity.productId);
       }
 
       const collection = MongoDb.dbconnect("discounts");

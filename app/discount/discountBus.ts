@@ -8,12 +8,19 @@ export interface DiscountBus {
   createOne(entity: DiscountEntity): Promise<boolean>;
   deleteOne(id: string): Promise<boolean>;
   findAll(): Promise<DiscountEntity[]>;
+  findByProductId(productId: string): Promise<boolean>;
 }
 
 export class DiscountBusConc implements DiscountBus {
   private db: DiscountDal;
   constructor(db: DiscountDal) {
     this.db = db;
+  }
+  async findByProductId(productId: string): Promise<boolean> {
+    const result = await this.db.findByProductId(productId);
+    console.log(result);
+    if (result.length <= 0) return false;
+    return true;
   }
   async updateOne(id: string, entity: DiscountEntity): Promise<boolean> {
     const result = await this.db.updateOne(id, entity);
@@ -24,8 +31,6 @@ export class DiscountBusConc implements DiscountBus {
     return result;
   }
   async createOne(entity: DiscountEntity): Promise<boolean> {
-
-
     const sDate = new Date(entity.sDate);
     const edate = new Date(entity.eDate);
     entity.sDate = sDate;
