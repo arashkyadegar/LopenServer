@@ -1,3 +1,5 @@
+import { DiscountEntity } from "../discount/discountEntity";
+
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 
@@ -24,6 +26,7 @@ export class ProductWbEntity extends ProductEntity {
   liked: boolean = false;
   scores: any[] = [];
   likes: any[] = [];
+  discounts: any[] = [];
 }
 export const ProductSchema = Joi.object({
   _id: Joi.objectId().allow(""),
@@ -48,5 +51,5 @@ export const ProductSchema = Joi.object({
 module.exports = {
   ProductEntity,
   ProductSchema,
-  ProductWbEntity
+  ProductWbEntity,
 };

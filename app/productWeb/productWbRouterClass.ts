@@ -29,23 +29,25 @@ export class ProductWbRouterClass {
     let wbuserId: string = "";
     if (req.query.wbuserId != undefined) {
       if (
-        !validator.isMongoId(validator.escape(req.query.wbuserId.toString()))
+        validator.isMongoId(validator.escape(req.query.wbuserId.toString()))
       ) {
-        const errorResponse = `validation failed. wbuserId is not valid`;
-        this.logger.logError(errorResponse, "findOneProduct");
-        return {
-          status: ResponseStatus.BAD_REQUEST,
-          message: errorResponse,
-        };
+        wbuserId = req.query.wbuserId;
+        // const errorResponse = `validation failed. wbuserId is not valid`;
+        // this.logger.logError(errorResponse, "findOneProduct");
+        // return {
+        //   status: ResponseStatus.BAD_REQUEST,
+        //   message: errorResponse,
+        // };
       }
-    } else {
-      const errorResponse = `validation failed. wbuserId is not provided`;
-      this.logger.logError(errorResponse, "findOneProduct");
-      return {
-        status: ResponseStatus.BAD_REQUEST,
-        message: errorResponse,
-      };
     }
+    //  else {
+    //   const errorResponse = `validation failed. wbuserId is not provided`;
+    //   this.logger.logError(errorResponse, "findOneProduct");
+    //   return {
+    //     status: ResponseStatus.BAD_REQUEST,
+    //     message: errorResponse,
+    //   };
+    // }
 
     if (req.params.id === undefined) {
       const errorResponse = `validation failed. id is not provided`;
@@ -66,7 +68,7 @@ export class ProductWbRouterClass {
     }
 
     let id = req.params.id;
-    wbuserId = req.query.wbuserId;
+
     result = await this.bus.findOne(id, wbuserId);
 
     if (result === undefined) {

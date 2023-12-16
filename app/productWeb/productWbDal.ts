@@ -4,9 +4,9 @@ import { ProductDalLogger } from "../logger/productLogger";
 import { MongoDb } from "../config/mongodb";
 var ObjectId = require("mongodb").ObjectId;
 export interface ProductWbDal {
- // updateOne(id: string, entity: ProductEntity): Promise<boolean>;
-  findOne(id: string): Promise<ProductWbEntity>;
-  findAll(): Promise<ProductWbEntity[]>;
+  // updateOne(id: string, entity: ProductEntity): Promise<boolean>;
+  findOne(id: string, today: string): Promise<ProductWbEntity>;
+  findAll(today: string): Promise<ProductWbEntity[]>;
 }
 export class ProductWbDalConc implements ProductWbDal {
   logger: any;
@@ -14,8 +14,7 @@ export class ProductWbDalConc implements ProductWbDal {
     this.logger = new ProductDalLogger();
   }
 
-
-  async findOne(id: string): Promise<ProductWbEntity> {
+  async findOne(id: string, today: string): Promise<ProductWbEntity> {
     let result;
     try {
       const objectId = new ObjectId(id);
@@ -40,6 +39,15 @@ export class ProductWbDalConc implements ProductWbDal {
                 as: "scores",
               },
             },
+            {
+              $lookup: {
+                from: "discounts",
+                localField: "_id",
+                foreignField: "productId",
+                as: "discounts",
+              },
+            },
+
             { $addFields: { liked: false } },
           ])
           .toArray();
@@ -50,14 +58,14 @@ export class ProductWbDalConc implements ProductWbDal {
     return result;
   }
 
-  async findAll(): Promise<ProductWbEntity[]> {
+  async findAll(today: string): Promise<ProductWbEntity[]> {
     let result;
     try {
       const collection = MongoDb.dbconnect("products");
       await collection.then((products) => {
         result = products
           .aggregate([
-            { $match: { display: true } },
+            //   { $match: { display: false } },
             {
               $lookup: {
                 from: "likes",
@@ -74,8 +82,18 @@ export class ProductWbDalConc implements ProductWbDal {
                 as: "scores",
               },
             },
+            {
+              $lookup: {
+                from: "discounts",
+                localField: "_id",
+                foreignField: "productId",
+                as: "discounts",
+              },
+            },
+
             { $addFields: { liked: false } },
           ])
+
           .sort({ name: 1, date: -1 })
           .toArray();
       });
