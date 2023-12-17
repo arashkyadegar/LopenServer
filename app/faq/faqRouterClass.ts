@@ -137,8 +137,8 @@ export class FaqRouterClass {
   }
   async createOne(req, res, next): Promise<any> {
     let result;
-    const FaqEntity = req.body as FaqEntity;
-    const { error } = FaqSchema.validate(FaqEntity);
+    const faqEntity = req.body as FaqEntity;
+    const { error } = FaqSchema.validate(faqEntity);
     if (error) {
       const errorResponse = `validation failed. errors: ${error} `;
       this.logger.logError(errorResponse, "createOne");
@@ -147,7 +147,7 @@ export class FaqRouterClass {
         status: ResponseStatus.BAD_REQUEST,
       };
     }
-    result = await this.bus.createOne(FaqEntity);
+    result = await this.bus.createOne(faqEntity);
     return {
       status: ResponseStatus.OK,
       message: result,

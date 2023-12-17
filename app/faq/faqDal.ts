@@ -83,7 +83,7 @@ export class FaqDalConc implements FaqDal {
       const collection = MongoDb.dbconnect("faqs");
       await collection.then((faqs) => {
         result = faqs.deleteOne({
-          wbuserId: objectId,
+          _id: objectId,
         });
       });
     } catch (err: any) {
