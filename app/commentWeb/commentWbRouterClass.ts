@@ -14,8 +14,9 @@ export class CommentWbRouterClass {
   }
 
   async findAllBywbuserId(req, res, next): Promise<any> {
-    if (req.params.userId === undefined) {
-      const errorResponse = `validation failed. userId is not provided`;
+
+    if (req.params.wbuserId === undefined) {
+      const errorResponse = `validation failed. wbuserId is not provided`;
       this.logger.logError(errorResponse, "findAllBywbuserId");
       return {
         status: ResponseStatus.BAD_REQUEST,
@@ -23,8 +24,8 @@ export class CommentWbRouterClass {
       };
     }
 
-    if (!validator.isMongoId(req.params.userId.toString())) {
-      const errorResponse = `validation failed. userId is not valid`;
+    if (!validator.isMongoId(req.params.wbuserId.toString())) {
+      const errorResponse = `validation failed. wbuserId is not valid`;
       this.logger.logError(errorResponse, "findAllBywbuserId");
       return {
         status: ResponseStatus.BAD_REQUEST,
@@ -32,8 +33,8 @@ export class CommentWbRouterClass {
       };
     }
 
-    let userId = req.params.userId;
-    const result = await this.bus.findAllBywbuserId(userId);
+    let wbuserId = req.params.wbuserId;
+    const result = await this.bus.findAllBywbuserId(wbuserId);
     return {
       status: ResponseStatus.OK,
       message: result,
@@ -41,8 +42,8 @@ export class CommentWbRouterClass {
   }
   async createOne(req, res, next): Promise<any> {
     let result;
-    const faqEntity = req.body as CommentEntity;
-    const { error } = CommentSchema.validate(faqEntity);
+    const commentEntity = req.body as CommentEntity;
+    const { error } = CommentSchema.validate(commentEntity);
     if (error) {
       const errorResponse = `validation failed. errors: ${error} `;
       this.logger.logError(errorResponse, "createOne");
@@ -51,7 +52,7 @@ export class CommentWbRouterClass {
         status: ResponseStatus.BAD_REQUEST,
       };
     }
-    result = await this.bus.createOne(faqEntity);
+    result = await this.bus.createOne(commentEntity);
     return {
       status: ResponseStatus.OK,
       message: result,
