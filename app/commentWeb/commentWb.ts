@@ -5,7 +5,7 @@ import { CommentWbRouterLogger } from "../logger/commentLogger";
 import { CommentWbRouterClass } from "./commentWbRouterClass";
 export const CommentRouter = express.Router();
 
-CommentRouter.get("/:userId", async function (req, res, next) {
+CommentRouter.get("/:wbuserId", async function (req, res, next) {
   try {
     const bus = new CommentWbBusConc(new CommentWbDalConc());
     const router = new CommentWbRouterClass(bus);
@@ -13,7 +13,7 @@ CommentRouter.get("/:userId", async function (req, res, next) {
     return res.status(result.status).send(result.message);
   } catch (err: any) {
     const logger = new CommentWbRouterLogger();
-    logger.logError(err, "get /:userId");
+    logger.logError(err, "get /:wbuserId");
     next(err);
   }
 });
