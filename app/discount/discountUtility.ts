@@ -1,6 +1,6 @@
 import { DiscountEntity } from "./discountEntity";
 
-export const checkIfDiscountIsAllowed = (discount: any): DiscountEntity[] {
+export const checkIfDiscountIsAllowed = (discount: any): DiscountEntity[] => {
      let today = new Date();
      const sd = discount.sDate.toISOString().substring(0, 10);
      const ed = discount.eDate.toISOString().substring(0, 10);
