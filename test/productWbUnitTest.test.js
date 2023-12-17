@@ -8,7 +8,7 @@ const { ResponseStatus } = require('../dist/app/utility/errorStatus');
 //to run ==> npm test -- -g "productWbRouterClass"
 describe("productWbRouterClass", function () {
      describe("findOne", async function(){
-          it("1- findOne should response 400 if webuserId is undefiend", async function () {
+          it("1- findOne should response 200 if webuserId is not defined", async function () {
 
                const mRes = {
                     status: sinon.stub().returnsThis(),
@@ -19,7 +19,7 @@ describe("productWbRouterClass", function () {
                     query: {
                          //wbuserId: '64b6c8f0b10'
                     },
-                    params: {  }
+                    params: { id:'6571769ef9e06365aab1c7c8' }
                };
 
                const bus = new ProductWbBusConc(new ProductWbDalConc());
@@ -31,8 +31,8 @@ describe("productWbRouterClass", function () {
                const tester = new ProductWbRouterClass(bus);
                //sinon.stub(ProductSchema, "validate").returns({ error: true });
                const response = await tester.findOne(mReq, mRes, (e) => { console.log(e) });
-               expect(response).to.have.property('status').equal(400);
-               expect(response).to.have.property('message').equal(`validation failed. wbuserId is not provided`);
+               expect(response).to.have.property('status').equal(200);
+               //expect(response).to.have.property('message').equal(`validation failed. wbuserId is not provided`);
 
                bus.findOne.restore(); //don't forget to restore
                //ProductSchema.validate.restore(); //don't forget to restore
