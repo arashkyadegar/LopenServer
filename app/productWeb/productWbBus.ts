@@ -1,7 +1,5 @@
-import { date } from "joi";
-import { ProductEntity, ProductWbEntity } from "../product/productEntity";
+import { ProductWbEntity } from "../product/productEntity";
 import { ProductWbDal } from "./productWbDal";
-import { DiscountEntity } from "../discount/discountEntity";
 import { checkLikesByUser } from "../likeWeb/likeWbUtility";
 import { calculateScore } from "../scoreWeb/scoreWbUtility";
 import { checkIfDiscountIsAllowed } from "../discount/discountUtility";
