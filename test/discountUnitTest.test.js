@@ -336,21 +336,53 @@ describe("discountRouterClass", function () {
                DiscountSchema.validate.restore(); //don't forget to restore
           });
 
-          it("2- createOne should response 200 if everyting is ok", async function () {
+          it("2- createOne should response 409 if productId is duplicated", async function () {
                const mRes = {
                     status: sinon.stub().returnsThis(),
                     send: sinon.stub(),
                };
 
                const mReq = {
-                    params: { }
+                    params: { },
+                    body: { productId:"6571769ef9e06365aab1c7c8"}
                };
+
+
+               const bus = new DiscountBusConc(new DiscountDalConc());
+               sinon.stub(bus, "createOne").returns();
+               sinon.stub(bus, "findByProductId").returns(true);
+               
+               const tester = new DiscountRouterClass(bus);
+               sinon.stub(DiscountSchema, "validate").returns({ error: false });
+               const response = await tester.createOne(mReq, mRes, (e) => { console.log(e) });
+               expect(response).to.have.property('status').equal(409);
+               expect(response).to.have.property('message').equal(`validation failed. duplicate productId`);
+
+
+               bus.createOne.restore(); //don't forget to restore
+               bus.findByProductId.restore(); //don't forget to restore
+               DiscountSchema.validate.restore(); //don't forget to restore
+          });
+
+
+          it("3- createOne should response 200 if everyting is ok", async function () {
+               const mRes = {
+                    status: sinon.stub().returnsThis(),
+                    send: sinon.stub(),
+               };
+
+               const mReq = {
+                    params: { },
+                    body: { productId:"6571769ef9e06365aab1c7c8"}
+               };
+
 
                const bus = new DiscountBusConc(new DiscountDalConc());
                sinon.stub(bus, "createOne").returns({
                     "acknowledged": true,
                     "insertedId": "6571769ef9e06365aab1c7c8"
                });
+               sinon.stub(bus, "findByProductId").returns(false);
 
                const tester = new DiscountRouterClass(bus);
                sinon.stub(DiscountSchema, "validate").returns({ error: false });
@@ -358,6 +390,7 @@ describe("discountRouterClass", function () {
                expect(response).to.have.property('status').equal(200);
 
                bus.createOne.restore(); //don't forget to restore
+               //bus.findByProductId.restore(); //don't forget to restore
                DiscountSchema.validate.restore(); //don't forget to restore
           });
      });
