@@ -152,13 +152,12 @@ export class DiscountRouterClass {
       discountEntity.productId
     );
 
-    console.log(duplicatedProductId);
     if (duplicatedProductId) {
       const errorResponse = `validation failed. duplicate productId`;
       this.logger.logError(errorResponse, "createOne");
       return {
         message: errorResponse,
-        status: ResponseStatus.BAD_REQUEST,
+        status: ResponseStatus.TRYING_TO_ADD_A_DUPLICATE,
       };
     }
 
