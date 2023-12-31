@@ -8,7 +8,7 @@ export class ProductEntity {
   name: string = "";
   weight: string = "";
   size: string = "";
-  HealthId: string = "";
+  healthId: string = "";
   type: string = "";
   components: string = "";
   desc: string = "";
@@ -33,7 +33,7 @@ export const ProductSchema = Joi.object({
   name: Joi.string(),
   weight: Joi.string(),
   size: Joi.string(),
-  HealthId: Joi.string(),
+  healthId: Joi.string(),
   type: Joi.string(),
   components: Joi.string().allow(""),
   desc: Joi.string().allow(""),
