@@ -1,11 +1,10 @@
 import { IBaseLogger } from "./iBaseLogger";
 import { WinstonLogger } from "./winstonLogger";
 
-
 export class ProductDalLogger implements IBaseLogger {
   logger: WinstonLogger;
-  constructor(){
-    this.logger= new WinstonLogger("ProductDal");
+  constructor() {
+    this.logger = new WinstonLogger("ProductDal");
   }
   logError(err: string, method: string): void {
     const instance = this.logger.getLogger(method);
@@ -16,12 +15,11 @@ export class ProductDalLogger implements IBaseLogger {
     instance.info(err);
   }
 }
-
 
 export class ProductRouterLogger implements IBaseLogger {
   logger: WinstonLogger;
-  constructor(){
-    this.logger= new WinstonLogger("ProductRouter");
+  constructor() {
+    this.logger = new WinstonLogger("ProductRouter");
   }
 
   logError(err: string, method: string): void {
@@ -34,30 +32,27 @@ export class ProductRouterLogger implements IBaseLogger {
   }
 }
 
-
-export class ProductRouterClassLogger implements IBaseLogger  {
+export class ProductRouterClassLogger implements IBaseLogger {
   logger: WinstonLogger;
-  constructor(){
-    this.logger= new WinstonLogger("ProductRouterClass");
+  constructor() {
+    this.logger = new WinstonLogger("ProductRouterClass");
   }
 
-  logError(err: string,method: string): void {
+  logError(err: string, method: string): void {
     const instance = this.logger.getLogger(method);
     instance.error(err);
   }
 
-  logInfo(err: string,method: string): void {
+  logInfo(err: string, method: string): void {
     const instance = this.logger.getLogger(method);
     instance.info(err);
   }
 }
-
-
 
 export class ProductWbDalLogger implements IBaseLogger {
   logger: WinstonLogger;
-  constructor(){
-    this.logger= new WinstonLogger("ProductWbDal");
+  constructor() {
+    this.logger = new WinstonLogger("ProductWbDal");
   }
   logError(err: string, method: string): void {
     const instance = this.logger.getLogger(method);
@@ -68,12 +63,11 @@ export class ProductWbDalLogger implements IBaseLogger {
     instance.info(err);
   }
 }
-
 
 export class ProductWbRouterLogger implements IBaseLogger {
   logger: WinstonLogger;
-  constructor(){
-    this.logger= new WinstonLogger("ProductWbRouter");
+  constructor() {
+    this.logger = new WinstonLogger("ProductWbRouter");
   }
 
   logError(err: string, method: string): void {
@@ -86,19 +80,35 @@ export class ProductWbRouterLogger implements IBaseLogger {
   }
 }
 
-
-export class ProductWbRouterClassLogger implements IBaseLogger  {
+export class ProductWbRouterClassLogger implements IBaseLogger {
   logger: WinstonLogger;
-  constructor(){
-    this.logger= new WinstonLogger("ProductWbRouterClass");
+  constructor() {
+    this.logger = new WinstonLogger("ProductWbRouterClass");
   }
 
-  logError(err: string,method: string): void {
+  logError(err: string, method: string): void {
     const instance = this.logger.getLogger(method);
     instance.error(err);
   }
 
-  logInfo(err: string,method: string): void {
+  logInfo(err: string, method: string): void {
+    const instance = this.logger.getLogger(method);
+    instance.info(err);
+  }
+}
+
+export class ProductContorllerRouterLogger implements IBaseLogger {
+  logger: WinstonLogger;
+  constructor() {
+    this.logger = new WinstonLogger("ProductContorllerRouter");
+  }
+
+  logError(err: string, method: string): void {
+    const instance = this.logger.getLogger(method);
+    instance.error(err);
+  }
+
+  logInfo(err: string, method: string): void {
     const instance = this.logger.getLogger(method);
     instance.info(err);
   }
@@ -109,5 +119,6 @@ module.exports = {
   ProductDalLogger,
   ProductWbDalLogger,
   ProductWbRouterLogger,
-  ProductWbRouterClassLogger
-}
+  ProductWbRouterClassLogger,
+  ProductContorllerRouterLogger
+};

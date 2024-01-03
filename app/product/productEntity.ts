@@ -9,7 +9,7 @@ export class ProductEntity {
   weight: string = "";
   size: string = "";
   healthId: string = "";
-  type: string = "";
+  type: string = "1";
   components: string = "";
   desc: string = "";
   score: number = 0;
@@ -30,21 +30,43 @@ export class ProductWbEntity extends ProductEntity {
 }
 export const ProductSchema = Joi.object({
   _id: Joi.objectId().allow(""),
-  name: Joi.string(),
-  weight: Joi.string(),
-  size: Joi.string(),
-  healthId: Joi.string(),
-  type: Joi.string(),
-  components: Joi.string().allow(""),
-  desc: Joi.string().allow(""),
-  score: Joi.number(),
-  price: Joi.number(),
+  name: Joi.string().messages({
+    "string.empty": "نام محصول الزامی میباشد",
+  }),
+  weight: Joi.number().messages({
+    "number.base": "وزن محصول باید عدد صحیح باشد",
+  }),
+  size: Joi.string().messages({
+    "string.empty": "سایز محصول الزامی میباشد",
+  }),
+  healthId: Joi.string().messages({
+    "string.empty": "شناسه سلامت محصول الزامی میباشد",
+  }),
+  type: Joi.string().messages({
+    "string.empty": "نوع محصول الزامی میباشد",
+  }),
+  components: Joi.string().messages({
+    "string.empty": "ترکیبات  محصول الزامی میباشد",
+  }),
+  desc: Joi.string().messages({
+    "string.empty": "توضیحات  محصول الزامی میباشد",
+  }),
+  score: Joi.number().messages({
+    "number.base": "امتیاز محصول باید عدد صحیح باشد",
+  }),
+  price: Joi.number().required().messages({
+    "number.base": "قیمت محصول باید عدد صحیح باشد",
+  }),
   display: Joi.boolean(),
   isAvailable: Joi.boolean(),
-  image: Joi.string(),
-  images: Joi.array().items(Joi.string()),
-  tags: Joi.array().items(Joi.string()),
-  userId: Joi.string(),
+  image: Joi.string().allow(""),
+  images: Joi.array().items(Joi.string()).min(3).messages({
+    "array.base": "  حداقل ۳ تصویر باید وارد کنید"
+  }),
+  tags: Joi.array().items(Joi.string()).min(1).messages({
+    "array.base": "  حداقل ۱ برچسب  باید وارد کنید"
+  }),
+  userId: Joi.string().allow(""),
   date: Joi.string().allow(""),
 });
 
