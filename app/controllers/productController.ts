@@ -12,14 +12,18 @@ import { ProductEntity, ProductSchema } from "../product/productEntity";
 import { ResponseStatus } from "../utility/errorStatus";
 const multer = require("multer");
 
-const upload = multer({
-  dest: "./public/data/uploads",
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./public/data/uploads");
+  },
   filename: function (req, file, cb) {
-    //req.body is empty...
-    //How could I get the new_file_name property sent from client here?
-    cb(null, file.filename + "-" + Date.now() + ".png");
+    //const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    console.log(file);
+    cb(null, Date.now() + file.originalname + ".png");
   },
 });
+
+const upload = multer({ storage: storage });
 export const ProductContorllerRouter = express.Router();
 
 // create product
