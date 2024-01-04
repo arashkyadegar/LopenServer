@@ -13,6 +13,7 @@ const DiscountRouter = require("../discount/discount");
 const CommentRouter = require("../comment/comment");
 const CommentWbRouter = require("../commentWeb/commentWb");
 const ProductContorllerRouter = require("../controllers/productController");
+const DiscountContorllerRouter = require("../controllers/discountController");
 module.exports = function (app) {
   app.use("/api/products", ProductRouter);
   app.use("/api/wbproducts", ProductWbRouter);
@@ -28,4 +29,5 @@ module.exports = function (app) {
   app.use("/api/wbcomments", CommentWbRouter);
 
   app.use("/products", ProductContorllerRouter);
+  app.use("/discounts", DiscountContorllerRouter);
 };

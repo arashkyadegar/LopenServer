@@ -17,6 +17,22 @@ export class DiscountDalLogger implements IBaseLogger {
   }
 }
 
+export class DicsountContorllerRouterLogger implements IBaseLogger {
+  logger: WinstonLogger;
+  constructor() {
+    this.logger = new WinstonLogger("DiscountContorllerRouter");
+  }
+
+  logError(err: string, method: string): void {
+    const instance = this.logger.getLogger(method);
+    instance.error(err);
+  }
+
+  logInfo(err: string, method: string): void {
+    const instance = this.logger.getLogger(method);
+    instance.info(err);
+  }
+}
 
 export class DiscountRouterLogger implements IBaseLogger {
   logger: WinstonLogger;
@@ -109,5 +125,6 @@ module.exports = {
   DiscountDalLogger,
   DiscountWbDalLogger,
   DiscountWbRouterLogger,
-  DiscountWbRouterClassLogger
+  DiscountWbRouterClassLogger,
+  DicsountContorllerRouterLogger
 }

@@ -148,8 +148,16 @@
               value ='<%= (typeof
               product != undefined)? product.display : '' %>'
             >
-              <option value="true">نمایش</option>
-              <option value="false">پنهان</option>
+            <% if (typeof product != 'undefined') { %> <%
+              if(product.display=='true')  { %>
+                <option value ='true' selected="true">نمایش</option>
+                <option value="false" >پنهان</option>
+              <% }else{%> 
+                <option value ='true' >نمایش</option>
+                <option value="false" selected="true">پنهان</option>
+                <%} %>
+                <%} %>
+
             </select>
           </div>
 
@@ -164,11 +172,18 @@
               id="isAvailable"
               class="p-1 outline-none border border-gray-300 bg-[#F9FAFB]"
               placeholder="موجودی"
-              value ='<%= (typeof
-              product != undefined)? product.isAvailable : '' %>'
             >
-              <option value="true">موجود</option>
-              <option value="false">اتمام</option>
+              <% if (typeof product != 'undefined') { %> <%
+              if(product.isAvailable=='true')  { %>
+                <option value ='true' selected="true">موجود</option>
+                <option value="false" >اتمام</option>
+              <% }else{%> 
+                <option value ='true' >موجود</option>
+                <option value="false" selected="true">اتمام</option>
+                <%} %>
+                <%} %>
+
+
             </select>
           </div>
           <div class="flex flex-col gap-2 mx-2 sm:mt-2">
@@ -222,6 +237,16 @@
               ثبت تغییرات
             </button>
           </div>
+        </div>
+        <div class=" flex flex-col">
+          <% if (typeof product != undefined) { %> <%
+            product.images.forEach(function(item) { %>
+
+              <img class="w-40 h-40" src='/data/uploads/<%= item %>' />
+            <% }); %> <%} %>
+
+          <img src="" />
+          <img src="" />
         </div>
       </form>
     </main>
