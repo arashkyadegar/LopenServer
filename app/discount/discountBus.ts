@@ -27,19 +27,28 @@ export class DiscountBusConc implements DiscountBus {
     return result;
   }
   async findOne(id: string): Promise<DiscountEntity> {
-    const result = await this.db.findOne(id);
+    var moment = require("jalali-moment");
+    let result = await this.db.findOne(id);
+    let sdatePersian = moment(result[0].sDate, "YYYY/MM/DD")
+      .locale("fa")
+      .format("YYYY/MM/DD");
+    let edatePersian = moment(result[0].eDate, "YYYY/MM/DD")
+      .locale("fa")
+      .format("YYYY/MM/DD");
+
+    result[0].sDate = sdatePersian;
+    result[0].eDate = edatePersian;
+    console.log(result[0]);
     return result;
   }
   async createOne(entity: DiscountEntity): Promise<boolean> {
-    console.log(entity);
-    var moment = require('jalali-moment');
-    let x = moment.from(entity.sDate, 'fa', 'YYYY/M/D');
-    let y = moment.from(entity.eDate, 'fa', 'YYYY/M/D');
+    var moment = require("jalali-moment");
+    let x = moment.from(entity.sDate, "fa", "YYYY/M/D");
+    let y = moment.from(entity.eDate, "fa", "YYYY/M/D");
     const sDate = new Date(x);
     const edate = new Date(y);
     entity.sDate = sDate;
     entity.eDate = edate;
-    console.log(entity);
     const result = await this.db.createOne(entity);
     return result;
   }

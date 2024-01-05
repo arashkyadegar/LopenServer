@@ -16,7 +16,7 @@
     <main class="p-4">
      <div className="px-2">
        <a className=" flex text-2xl border-b p-4 border-gray-400">
-         ثبت تخفیف جدید
+           ویرایش تخفیف 
        </a>
      </div>
      <% if (typeof error != 'undefined') { %> <%
@@ -26,7 +26,7 @@
       <% }); %> <%} %>
      <form
      class="w-full flex flex-row"
-     action="/discounts/create"
+     action='/discounts/edit/<%= discount._id %>'
      method="post"
      enctype="multipart/form-data"
    >
