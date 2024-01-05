@@ -185,7 +185,7 @@ ProductContorllerRouter.post(
         logger.logError(errorResponse, "updateOne");
         return res.render("productEdit", {
           product: product,
-          error: { details: [errorResponse] },
+          error: { details: [{message : errorResponse}] },
         });
       }
       let id = req.params.id;

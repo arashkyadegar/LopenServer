@@ -31,10 +31,15 @@ export class DiscountBusConc implements DiscountBus {
     return result;
   }
   async createOne(entity: DiscountEntity): Promise<boolean> {
-    const sDate = new Date(entity.sDate);
-    const edate = new Date(entity.eDate);
+    console.log(entity);
+    var moment = require('jalali-moment');
+    let x = moment.from(entity.sDate, 'fa', 'YYYY/M/D');
+    let y = moment.from(entity.eDate, 'fa', 'YYYY/M/D');
+    const sDate = new Date(x);
+    const edate = new Date(y);
     entity.sDate = sDate;
     entity.eDate = edate;
+    console.log(entity);
     const result = await this.db.createOne(entity);
     return result;
   }

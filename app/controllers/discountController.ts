@@ -57,38 +57,63 @@ DiscountContorllerRouter.get("/", async function (req, res, next) {
   }
 });
 
-DiscountContorllerRouter.post("/create", upload.none(), function (req: any, res, next) {
-  const logger = new DicsountContorllerRouterLogger();
-  try {
-    console.log(req.body);
-    let result;
-    const bus = new DiscountBusConc(new DiscountDalConc());
+DiscountContorllerRouter.post(
+  "/create",
+  upload.none(),
+  async function (req: any, res, next) {
+    const logger = new DicsountContorllerRouterLogger();
+    try {
+      let result;
+      const productBus = new ProductBusConc(new ProductDalConc());
+      const productRouter = new ProductRouterClass(productBus);
+      const productResult = await productBus.findAll();
 
-    let discount = new DiscountEntity();
-    discount._id = "";
-    discount.sDate = req.body.sDate;
-    discount.eDate = req.body.eDate;
-    discount.title = req.body.title;
-    discount.type = 1;
-    discount.value = req.body.value;
-    discount.productId = req.body.productId;
+      const bus = new DiscountBusConc(new DiscountDalConc());
 
-    // Joi validation options
-    const _validationOptions = {
-      abortEarly: false, // abort after the last validation error
-    };
-    const { error } = DiscountSchema.validate(discount, _validationOptions);
-    if (error) {
-      logger.logError(error, "discount /create");
-      res.render("discountCreate", { discount: discount, error: error });
-    } else {
-      result = bus.createOne(discount);
-      res.render("discountCreate");
+      let discount = new DiscountEntity();
+      discount._id = "";
+      discount.sDate = req.body.sDate;
+      discount.eDate = req.body.eDate;
+      discount.title = req.body.title;
+      discount.type = 1;
+      discount.value = req.body.value;
+      discount.productId = req.body.productId;
+      console.log(discount);
+      const duplicatedProductId = await bus.findByProductId(discount.productId);
+
+      if (duplicatedProductId) {
+        const errorResponse = `validation failed. duplicate productId`;
+        logger.logError(errorResponse, "createOne");
+        console.log(discount);
+        return res.render("discountCreate", {
+          products: productResult,
+          discount: discount,
+          error: { details: [{ message: errorResponse }] },
+        });
+      }
+      // Joi validation options
+      const _validationOptions = {
+        abortEarly: false, // abort after the last validation error
+      };
+      const { error } = DiscountSchema.validate(discount, _validationOptions);
+      if (error) {
+        logger.logError(error, "discount /create");
+        console.log(discount);
+        return res.render("discountCreate", {
+          products: productResult,
+          discount: discount,
+          error: error,
+        });
+      } else {
+        console.log(discount);
+        result = bus.createOne(discount);
+        return res.render("discountCreate", { products: productResult });
+      }
+    } catch (err: any) {
+      logger.logError(err, "discount /create");
+      next(err);
     }
-  } catch (err: any) {
-    logger.logError(err, "discount /create");
-    next(err);
   }
-});
+);
 
 module.exports = DiscountContorllerRouter;

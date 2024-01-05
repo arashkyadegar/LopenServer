@@ -6,9 +6,9 @@ export const checkIfDiscountIsAllowed = (discount: any): DiscountEntity[] => {
      const ed = discount.eDate.toISOString().substring(0, 10);
      const td = today.toISOString().substring(0, 10);
  
-     // console.log(td);
-     // console.log(sd);
-     // console.log(ed);
+     console.log(td);
+     console.log(sd);
+     console.log(ed);
  
      if (td >= sd && td <= ed) {
        return discount;
