@@ -100,7 +100,8 @@
             products.forEach(function(item) { %>
               <% if (typeof discount != 'undefined') { %>
               <% if (item._id==discount.productId) {%> 
-                <option value=<%= item._id %> selected ><%= item.name %></option>  
+            
+                <option selected value=<%= item._id %>  ><%= item.name %></option>  
 
               <%}else {%>
             <option value=<%= item._id %>><%= item.name %></option>

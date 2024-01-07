@@ -145,8 +145,9 @@ export class ProductRouterClass {
   }
   async createOne(req, res, next): Promise<any> {
     let result;
-    const ProductEntity = req.body as ProductEntity;
-    const { error } = ProductSchema.validate(ProductEntity);
+    const productEntity = req.body as ProductEntity;
+    console.log(productEntity)
+    const { error } = ProductSchema.validate(productEntity);
     if (error) {
       const errorResponse = `validation failed. errors: ${error} `;
       this.logger.logError(errorResponse, "createOne");
@@ -155,7 +156,7 @@ export class ProductRouterClass {
         status: ResponseStatus.BAD_REQUEST,
       };
     }
-    result = await this.bus.createOne(ProductEntity);
+    result = await this.bus.createOne(productEntity);
     return {
       status: ResponseStatus.OK,
       message: result,

@@ -54,9 +54,7 @@ export const ProductSchema = Joi.object({
   score: Joi.number().messages({
     "number.base": "امتیاز محصول باید عدد صحیح باشد",
   }),
-  price: Joi.number().required().messages({
-    "number.base": "قیمت محصول باید عدد صحیح باشد",
-  }),
+  price: Joi.number().required(),
   display: Joi.boolean(),
   isAvailable: Joi.boolean(),
   image: Joi.string().allow(""),

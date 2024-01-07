@@ -29,19 +29,30 @@ export const DiscountContorllerRouter = express.Router();
 // edit product
 DiscountContorllerRouter.get("/edit/:id", async function (req, res, next) {
   let result;
+  const productBus = new ProductBusConc(new ProductDalConc());
+  const productResult = await productBus.findAll();
+  console.log(productResult);
   let discount = new DiscountEntity();
   const bus = new DiscountBusConc(new DiscountDalConc());
   const logger = new DicsountContorllerRouterLogger();
   if (req.params.id === undefined) {
     const errorResponse = `validation failed. id is not provided`;
     logger.logError(errorResponse, "findOne");
-    return res.render("discountEdit", { discount: discount, error: errorResponse });
+    return res.render("discountEdit", {
+      products: productResult,
+      //discount: discount,
+      error: errorResponse,
+    });
   }
 
   if (!validator.isMongoId(req.params.id.toString())) {
     const errorResponse = `validation failed. id is not valid`;
     logger.logError(errorResponse, "findOne");
-    return res.render("discountEdit", { discount: discount, error: errorResponse });
+    return res.render("discountEdit", {
+      products: productResult,
+      // discount: discount,
+      error: errorResponse,
+    });
   }
 
   let id = req.params.id;
@@ -50,50 +61,45 @@ DiscountContorllerRouter.get("/edit/:id", async function (req, res, next) {
   if (result === undefined) {
     const errorResponse = `item not found.`;
     logger.logError(errorResponse, "findOne");
-    return res.render("discountEdit", { discount: discount, error: errorResponse });
+    return res.render("discountEdit", {
+      products: productResult,
+      //discount: result[0],
+      error: errorResponse,
+    });
   }
-
-  return res.render("discountEdit", { discount: result[0] });
+  console.log(result[0]);
+  return res.render("discountEdit", {
+    products: productResult,
+    discount: result[0],
+  });
 });
 
 DiscountContorllerRouter.post(
   "/edit/:id",
-  upload.array("files"),
-  function (req: any, res, next) {
+  upload.none(),
+  async function (req: any, res, next) {
     try {
       let result;
-      const bus = new ProductBusConc(new ProductDalConc());
+      const productBus = new ProductBusConc(new ProductDalConc());
+      const productResult = await productBus.findAll();
+      console.log(productResult);
+      const bus = new DiscountBusConc(new DiscountDalConc());
       const logger = new DicsountContorllerRouterLogger();
-      let product = new ProductEntity();
 
-      product.name = req.body.name;
-      product.weight = req.body.weight;
-      product.size = req.body.size;
-      product.healthId = req.body.healthId;
-      product.type = "1";
-      product.components = req.body.components;
-      product.desc = req.body.desc;
-      product.score = req.body.score;
-      product.price = req.body.price;
-      product.display = req.body.display;
-      product.isAvailable = req.body.isAvailable;
-      let tags = req.body.tags.trim().split(" ");
-      product.image = "";
-      product.images = [];
-      product.type = "1";
-      tags.forEach((element) => {
-        product.tags.push(element);
-      });
-
-      req.files.forEach((element) => {
-        product.images.push(element.filename);
-      });
-
+      let discount = new DiscountEntity();
+      discount._id = "";
+      discount.sDate = req.body.sDate;
+      discount.eDate = req.body.eDate;
+      discount.title = req.body.title;
+      discount.type = 1;
+      discount.value = req.body.value;
+      discount.productId = req.body.productId;
       if (req.params.id === undefined) {
         const errorResponse = `validation failed. id is not provided`;
         logger.logError(errorResponse, "edite");
         return res.render("discountEdit", {
-          product: product,
+          products: productResult,
+          discount: discount,
           error: { details: [errorResponse] },
         });
       }
@@ -102,24 +108,32 @@ DiscountContorllerRouter.post(
         const errorResponse = `validation failed. id is not valid`;
         logger.logError(errorResponse, "updateOne");
         return res.render("discountEdit", {
-          product: product,
-          error: { details: [{message : errorResponse}] },
+          products: productResult,
+          discount: discount,
+          error: { details: [{ message: errorResponse }] },
         });
       }
       let id = req.params.id;
-      product._id = id;
+      discount._id = id;
       // Joi validation options
       const _validationOptions = {
         abortEarly: false, // abort after the last validation error
       };
-      const { error } = ProductSchema.validate(product, _validationOptions);
+      const { error } = DiscountSchema.validate(discount, _validationOptions);
       if (error) {
         logger.logError(error, "post /create");
-        return res.render("productEdit", { product: product, error: error });
+        return res.render("discountEdit", {
+          products: productResult,
+          discount: discount,
+          error: error,
+        });
       }
 
-      result = bus.updateOne(id, product);
-      return res.render("productEdit", { product: product });
+      result = bus.updateOne(id, discount);
+      return res.render("discountEdit", {
+        products: productResult,
+        discount: discount,
+      });
     } catch (err: any) {
       const logger = new DicsountContorllerRouterLogger();
       logger.logError(err, "get /");
@@ -131,10 +145,10 @@ DiscountContorllerRouter.post(
 // index product
 DiscountContorllerRouter.get("/", async function (req, res, next) {
   try {
-      const bus = new DiscountBusConc(new DiscountDalConc());
-      const router = new DiscountRouterClass(bus);
-      const result =await bus.findAll();
-      res.render("discountIndex", { data: result });
+    const bus = new DiscountBusConc(new DiscountDalConc());
+    const router = new DiscountRouterClass(bus);
+    const result = await bus.findAll();
+    res.render("discountIndex", { data: result });
   } catch (err: any) {
     const logger = new DicsountContorllerRouterLogger();
     logger.logError(err, "get /");
@@ -176,13 +190,13 @@ DiscountContorllerRouter.post(
       discount.type = 1;
       discount.value = req.body.value;
       discount.productId = req.body.productId;
-      console.log(discount);
+      //console.log(discount);
       const duplicatedProductId = await bus.findByProductId(discount.productId);
 
       if (duplicatedProductId) {
         const errorResponse = `validation failed. duplicate productId`;
         logger.logError(errorResponse, "createOne");
-        console.log(discount);
+        //console.log(discount);
         return res.render("discountCreate", {
           products: productResult,
           discount: discount,
@@ -196,14 +210,14 @@ DiscountContorllerRouter.post(
       const { error } = DiscountSchema.validate(discount, _validationOptions);
       if (error) {
         logger.logError(error, "discount /create");
-        console.log(discount);
+
         return res.render("discountCreate", {
           products: productResult,
           discount: discount,
           error: error,
         });
       } else {
-        console.log(discount);
+
         result = bus.createOne(discount);
         return res.render("discountCreate", { products: productResult });
       }

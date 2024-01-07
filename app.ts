@@ -1,7 +1,7 @@
 // Arashk yadegar
 const multer = require("multer");
 const upload = multer({ dest: "./uploads/" });
-import 'dotenv/config';
+import "dotenv/config";
 const bodyParser = require("body-parser");
 
 var express = require("express");
@@ -16,7 +16,7 @@ var corsOptions = {
 };
 
 import jwt from "jsonwebtoken";
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,7 +24,7 @@ import { Base64 } from "./app/utility/base64";
 var http = require("http").Server(app);
 
 const LIARA_URL = process.env.LIARA_URL || "localhost";
-app.use(express.static(__dirname + './public'));
+app.use(express.static(__dirname + "./public"));
 
 app.use(express.static(path.resolve("./public")));
 require("./app/routes/index")(app);

@@ -1,5 +1,7 @@
+
+
 var express = require("express");
-const router = express.Router();
+
 const ProductRouter = require("../product/product");
 const ProductWbRouter = require("../productWeb/productWb");
 const SiteInfoRouter = require("../siteInfo/siteInfo");
@@ -14,6 +16,8 @@ const CommentRouter = require("../comment/comment");
 const CommentWbRouter = require("../commentWeb/commentWb");
 const ProductContorllerRouter = require("../controllers/productController");
 const DiscountContorllerRouter = require("../controllers/discountController");
+const  UploadRouter =  require("../upload/upload");
+
 module.exports = function (app) {
   app.use("/api/products", ProductRouter);
   app.use("/api/wbproducts", ProductWbRouter);
@@ -27,7 +31,7 @@ module.exports = function (app) {
   app.use("/api/discounts", DiscountRouter);
   app.use("/api/comments", CommentRouter);
   app.use("/api/wbcomments", CommentWbRouter);
-
+  app.use('/api/uploads',UploadRouter);
   app.use("/products", ProductContorllerRouter);
   app.use("/discounts", DiscountContorllerRouter);
 };
