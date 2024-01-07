@@ -16,15 +16,15 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 export const UploadRouter = express.Router();
 
-UploadRouter.post("/", upload.single("file"), function (req: any, res) {
-  // const result: any = [];
-  // console.log(  req.files);
-  // req.files.forEach((file: any) => {
-  //   result.push(file.filename);
-  // });
-  const fileName = validator.escape(req.file.filename);
+UploadRouter.post("/", upload.array("files"), function (req: any, res) {
+  const result: any = [];
+
+  req.files.forEach((file: any) => {
+    result.push(file.filename);
+  });
+  //const fileName = validator.escape(req.file.filename);
   res.status(ResponseStatus.OK).send({
-    files: fileName,
+    files: result,
   });
 });
 

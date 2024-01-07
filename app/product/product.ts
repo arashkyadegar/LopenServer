@@ -3,8 +3,10 @@ import { ProductBusConc } from "./productBus";
 import { ProductDalConc } from "./productDal";
 import { ProductRouterLogger } from "../logger/productLogger";
 import { ProductRouterClass } from "./productRouterClass";
+import { ResponseStatus } from "../utility/errorStatus";
 export const ProductRouter = express.Router();
 const multer = require("multer");
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./public/data/uploads");
@@ -15,7 +17,6 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + file.originalname + ".png");
   },
 });
-
 const upload = multer({ storage: storage });
 ProductRouter.get("/", async function (req, res, next) {
   try {
@@ -56,13 +57,20 @@ ProductRouter.delete("/:id", async function (req, res, next) {
   }
 });
 
-ProductRouter.post("/",  upload.none(), async function (req, res, next) {
+ProductRouter.post("/", upload.none(), async function (req: any, res, next) {
   try {
-    console.log(req.body);
+    // const result: any = [];
+    // console.log(req.body);
+
+    // //const fileName = validator.escape(req.file.filename);
+    // return res.status(ResponseStatus.OK).send({
+    //   files: result,
+    // });
+
     const bus = new ProductBusConc(new ProductDalConc());
     const router = new ProductRouterClass(bus);
     const result = await router.createOne(req, res, next);
-    return res.status(result.status).send(result.message);
+    return res.status(200).send(result);
   } catch (err: any) {
     const logger = new ProductRouterLogger();
     logger.logError(err, "post /");
@@ -82,8 +90,5 @@ ProductRouter.put("/:id", async function (req, res, next) {
     next(err);
   }
 });
-
-
-
 
 module.exports = ProductRouter;
