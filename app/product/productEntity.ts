@@ -19,6 +19,7 @@ export class ProductEntity {
   tags: string[] = [];
   image: string = "";
   images: string[] = [];
+  files: string[] = [];
   userId: string = "";
   date!: Date;
 }
@@ -54,16 +55,19 @@ export const ProductSchema = Joi.object({
   score: Joi.number().messages({
     "number.base": "امتیاز محصول باید عدد صحیح باشد",
   }),
+
   price: Joi.number().required(),
   display: Joi.boolean(),
   isAvailable: Joi.boolean(),
   image: Joi.string().allow(""),
   images: Joi.array().items(Joi.string()).min(3).messages({
-    "array.base": "  حداقل ۳ تصویر باید وارد کنید"
+    "array.base": "  حداقل ۳ تصویر باید وارد کنید",
   }),
   tags: Joi.array().items(Joi.string()).min(1).messages({
-    "array.base": "  حداقل ۱ برچسب  باید وارد کنید"
+    "array.base": "  حداقل ۱ برچسب  باید وارد کنید",
+    "string.empty": "برچسب  محصول الزامی میباشد",
   }),
+  files:Joi.array(),
   userId: Joi.string().allow(""),
   date: Joi.string().allow(""),
 });

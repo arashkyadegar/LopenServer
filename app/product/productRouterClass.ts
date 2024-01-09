@@ -22,6 +22,7 @@ export class ProductRouterClass {
 
   async deleteSoftOneProduct(req, res, next) {
     let result;
+    console.log(req.params);
     if (req.params.id === undefined) {
       const errorResponse = `validation failed. id is not provided`;
       this.logger.logError(errorResponse, "deleteOneProduct");
@@ -159,7 +160,7 @@ export class ProductRouterClass {
     result = await this.bus.createOne(productEntity);
     return {
       status: ResponseStatus.OK,
-      message: result,
+      message: productEntity,
     };
   }
 }

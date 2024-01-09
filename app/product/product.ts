@@ -70,7 +70,8 @@ ProductRouter.post("/", upload.none(), async function (req: any, res, next) {
     const bus = new ProductBusConc(new ProductDalConc());
     const router = new ProductRouterClass(bus);
     const result = await router.createOne(req, res, next);
-    return res.status(200).send(result);
+
+    return res.status(result.status).send(result.message);
   } catch (err: any) {
     const logger = new ProductRouterLogger();
     logger.logError(err, "post /");

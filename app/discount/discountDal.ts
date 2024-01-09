@@ -122,7 +122,20 @@ export class DiscountDalConc implements DiscountDal {
     try {
       const collection = MongoDb.dbconnect("discounts");
       await collection.then((discounts) => {
-        result = discounts.find().sort({ date: -1 }).toArray();
+        result = discounts
+          .aggregate([
+            {
+              $lookup: {
+                from: "products",
+                localField: "productId",
+                foreignField: "_id",
+                as: "product",
+              },
+            },
+            { $addFields: { product: { $first: "$product" } } },
+          ])
+          .sort({ date: -1 })
+          .toArray();
       });
     } catch (err: any) {
       this.logger.logError(err, "findAll");

@@ -65,7 +65,7 @@ export class ProductWbDalConc implements ProductWbDal {
       await collection.then((products) => {
         result = products
           .aggregate([
-            //   { $match: { display: false } },
+            { $match: { display: true } },
             {
               $lookup: {
                 from: "likes",

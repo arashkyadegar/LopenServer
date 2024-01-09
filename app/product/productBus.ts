@@ -18,8 +18,9 @@ export class ProductBusConc implements ProductBus {
     const result = await this.db.createOne(entity);
     return result;
   }
-  deleteSoftOneProduct(id: string): Promise<boolean> {
-    throw new Error("Method not implemented.");
+  async deleteSoftOneProduct(id: string): Promise<boolean> {
+    const result = await this.db.deleteSoftOneProduct(id);
+    return result;
   }
   async findAll(): Promise<ProductEntity[]> {
     const result = await this.db.findAll();
