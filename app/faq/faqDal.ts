@@ -60,6 +60,7 @@ export class FaqDalConc implements FaqDal {
   async createOne(entity: FaqEntity): Promise<boolean> {
     let result;
     try {
+
       const collection = MongoDb.dbconnect("faqs");
       await collection.then((faqs) => {
         result = faqs.insertOne({

@@ -17,7 +17,7 @@ export class FaqWbDalConc implements FaqWbDal {
       const collection = MongoDb.dbconnect("faqs");
       await collection.then((faqs) => {
         result = faqs
-          .find({ display: true })
+          .find()
           .sort({ priority: 1 })
           .toArray();
       });

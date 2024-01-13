@@ -139,6 +139,7 @@ export class FaqRouterClass {
     let result;
     const faqEntity = req.body as FaqEntity;
     const { error } = FaqSchema.validate(faqEntity);
+    console.log(faqEntity)
     if (error) {
       const errorResponse = `validation failed. errors: ${error} `;
       this.logger.logError(errorResponse, "createOne");
