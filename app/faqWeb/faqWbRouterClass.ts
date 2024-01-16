@@ -13,6 +13,7 @@ export class FaqWbRouterClass {
 
   async findAll(req, res, next): Promise<any> {
     const result = await this.bus.findAll();
+
     return {
       status: ResponseStatus.OK,
       message: result,

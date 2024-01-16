@@ -24,13 +24,6 @@ export class DiscountBusConc implements DiscountBus {
     return true;
   }
   async updateOne(id: string, entity: DiscountEntity): Promise<boolean> {
-    // var moment = require("jalali-moment");
-    // let x = moment.from(entity.sDate, "fa", "YYYY/M/D");
-    // let y = moment.from(entity.eDate, "fa", "YYYY/M/D");
-    // const sDate = new Date(x);
-    // const edate = new Date(y);
-    // entity.sDate = sDate;
-    // entity.eDate = edate;
     entity.sDate = converFaDateToEnDate(entity.sDate);
     entity.eDate = converFaDateToEnDate(entity.eDate);
     const result = await this.db.updateOne(id, entity);
@@ -38,26 +31,11 @@ export class DiscountBusConc implements DiscountBus {
   }
   async findOne(id: string): Promise<DiscountEntity> {
     let result = await this.db.findOne(id);
-    // var moment = require("jalali-moment");
-    // let sdatePersian = moment(result[0].sDate, "YYYY/MM/DD")
-    //   .locale("fa")
-    //   .format("YYYY/MM/DD");
-    // let edatePersian = moment(result[0].eDate, "YYYY/MM/DD")
-    //   .locale("fa")
-    //   .format("YYYY/MM/DD");
-
     result[0].sDate = converEnDateToFaDate(result[0].sDate);
     result[0].eDate = converEnDateToFaDate(result[0].eDate);
     return result;
   }
   async createOne(entity: DiscountEntity): Promise<boolean> {
-    // var moment = require("jalali-moment");
-    // let x = moment.from(entity.sDate, "fa", "YYYY/M/D");
-    // let y = moment.from(entity.eDate, "fa", "YYYY/M/D");
-    // let x = ;
-    // let y = ;
-    // const sDate = new Date(x);
-    // const edate = new Date(y);
     entity.sDate = converFaDateToEnDate(entity.sDate);
     entity.eDate = converFaDateToEnDate(entity.eDate);
     const result = await this.db.createOne(entity);

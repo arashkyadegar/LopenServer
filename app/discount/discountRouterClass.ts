@@ -137,6 +137,7 @@ export class DiscountRouterClass {
   async createOne(req, res, next): Promise<any> {
     let result;
     const discountEntity = req.body as DiscountEntity;
+    console.log(discountEntity)
 
     const { error } = DiscountSchema.validate(discountEntity);
     if (error) {
