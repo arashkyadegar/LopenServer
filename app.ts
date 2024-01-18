@@ -3,7 +3,7 @@ const multer = require("multer");
 const upload = multer({ dest: "./uploads/" });
 import "dotenv/config";
 const bodyParser = require("body-parser");
-
+var cookieParser = require("cookie-parser");
 var express = require("express");
 var app = express();
 var cors = require("cors");
@@ -13,14 +13,18 @@ var corsOptions = {
   origin: "http://localhost:3000",
   optionsSuccessStatus: 200,
   methods: "GET, PUT, POST, DELETE",
+  preflightContinue: true,
+  credentials: true,
 };
 
 import jwt from "jsonwebtoken";
+import { checkAuthorize } from "./app/middleware/authorize";
 app.set("view engine", "ejs");
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
+app.use(cookieParser());
 //app.use(bodyParser.urlencoded({ extended: true }));
-import { Base64 } from "./app/utility/base64";
+
 var http = require("http").Server(app);
 
 const LIARA_URL = process.env.LIARA_URL || "localhost";
@@ -44,10 +48,19 @@ require("./app/routes/index")(app);
 //   res.send(rslt);
 // });
 
-// app.post("/auth/login1/", upload.single("file"), function (req: any, res: any) {
-//   console.log(req.body);
-//   console.log(req.file);
+// app.post("/api/auth/login1/", function (req: any, res: any) {
+//   res.clearCookie("cookieName");
+//   res.cookie("cookieName", "arashk yadegar", {
+//     maxAge: 900000,
+//     httpOnly: false,
+//     secure: true,
+//   });
 //   res.send("hello world");
+// });
+
+// app.get("/api/auth/login1/",checkAuthorize, function (req: any, res: any) {
+
+//   res.send({ message: "goodbye" });
 // });
 
 app.listen(process.env.PORT, () =>
