@@ -3,11 +3,13 @@ import { FaqRouterLogger } from "../logger/faqLogger";
 import { FaqBusConc } from "./faqBus";
 import { FaqDalConc } from "./faqDal";
 import { FaqRouterClass } from "./faqRouterClass";
+import { checkAuthorize } from "../middleware/authorize";
 
 export const FaqRouter = express.Router();
 
-FaqRouter.get("/", async function (req, res, next) {
+FaqRouter.get("/", checkAuthorize, async function (req, res, next) {
   try {
+
     const bus = new FaqBusConc(new FaqDalConc());
     const router = new FaqRouterClass(bus);
     const result = await router.findAll(req, res, next);
@@ -19,8 +21,9 @@ FaqRouter.get("/", async function (req, res, next) {
   }
 });
 
-FaqRouter.get("/:id", async function (req, res, next) {
+FaqRouter.get("/:id",checkAuthorize, async function (req, res, next) {
   try {
+    console.log(req)
     const bus = new FaqBusConc(new FaqDalConc());
     const router = new FaqRouterClass(bus);
     const result = await router.findOne(req, res, next);
@@ -32,7 +35,7 @@ FaqRouter.get("/:id", async function (req, res, next) {
   }
 });
 
-FaqRouter.delete("/:id", async function (req, res, next) {
+FaqRouter.delete("/:id", checkAuthorize, async function (req, res, next) {
   try {
     const bus = new FaqBusConc(new FaqDalConc());
     const router = new FaqRouterClass(bus);
@@ -45,7 +48,7 @@ FaqRouter.delete("/:id", async function (req, res, next) {
   }
 });
 
-FaqRouter.post("/", async function (req, res, next) {
+FaqRouter.post("/", checkAuthorize, async function (req, res, next) {
   try {
     const bus = new FaqBusConc(new FaqDalConc());
     const router = new FaqRouterClass(bus);
@@ -58,7 +61,7 @@ FaqRouter.post("/", async function (req, res, next) {
   }
 });
 
-FaqRouter.put("/:id", async function (req, res, next) {
+FaqRouter.put("/:id", checkAuthorize, async function (req, res, next) {
   try {
     const bus = new FaqBusConc(new FaqDalConc());
     const router = new FaqRouterClass(bus);

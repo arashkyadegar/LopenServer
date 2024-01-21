@@ -4,6 +4,7 @@ import { ProductDalConc } from "./productDal";
 import { ProductRouterLogger } from "../logger/productLogger";
 import { ProductRouterClass } from "./productRouterClass";
 import { ResponseStatus } from "../utility/errorStatus";
+import { checkAuthorize } from "../middleware/authorize";
 export const ProductRouter = express.Router();
 const multer = require("multer");
 

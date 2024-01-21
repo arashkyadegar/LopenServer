@@ -1,6 +1,7 @@
 import express from "express";
 import { ResponseStatus } from "../utility/errorStatus";
 import validator from "validator";
+import { checkAuthorize } from "../middleware/authorize";
 const multer = require("multer");
 
 const storage = multer.diskStorage({
@@ -16,16 +17,20 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 export const UploadRouter = express.Router();
 
-UploadRouter.post("/", upload.array("files"), function (req: any, res) {
-  const result: any = [];
+UploadRouter.post(
+  "/",
+  [checkAuthorize, upload.array("files")],
+  function (req: any, res) {
+    const result: any = [];
 
-  req.files.forEach((file: any) => {
-    result.push(file.filename);
-  });
-  //const fileName = validator.escape(req.file.filename);
-  res.status(ResponseStatus.OK).send({
-    files: result,
-  });
-});
+    req.files.forEach((file: any) => {
+      result.push(file.filename);
+    });
+    //const fileName = validator.escape(req.file.filename);
+    res.status(ResponseStatus.OK).send({
+      files: result,
+    });
+  }
+);
 
 module.exports = UploadRouter;
