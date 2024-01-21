@@ -9,6 +9,7 @@ export const FaqRouter = express.Router();
 
 FaqRouter.get("/", checkAuthorize, async function (req, res, next) {
   try {
+
     const bus = new FaqBusConc(new FaqDalConc());
     const router = new FaqRouterClass(bus);
     const result = await router.findAll(req, res, next);
@@ -20,8 +21,9 @@ FaqRouter.get("/", checkAuthorize, async function (req, res, next) {
   }
 });
 
-FaqRouter.get("/:id", checkAuthorize, async function (req, res, next) {
+FaqRouter.get("/:id",checkAuthorize, async function (req, res, next) {
   try {
+    console.log(req)
     const bus = new FaqBusConc(new FaqDalConc());
     const router = new FaqRouterClass(bus);
     const result = await router.findOne(req, res, next);

@@ -3,10 +3,11 @@ import { DiscountRouterLogger } from "../logger/discountLogger";
 import { DiscountBusConc } from "./discountBus";
 import { DiscountDalConc } from "./discountDal";
 import { DiscountRouterClass } from "./discountRouterClass";
+import { checkAuthorize } from "../middleware/authorize";
 
 export const DiscountRouter = express.Router();
 
-DiscountRouter.get("/", async function (req, res, next) {
+DiscountRouter.get("/", checkAuthorize, async function (req, res, next) {
   try {
     const bus = new DiscountBusConc(new DiscountDalConc());
     const router = new DiscountRouterClass(bus);
@@ -19,7 +20,7 @@ DiscountRouter.get("/", async function (req, res, next) {
   }
 });
 
-DiscountRouter.get("/:id", async function (req, res, next) {
+DiscountRouter.get("/:id", checkAuthorize, async function (req, res, next) {
   try {
     const bus = new DiscountBusConc(new DiscountDalConc());
     const router = new DiscountRouterClass(bus);
@@ -32,7 +33,7 @@ DiscountRouter.get("/:id", async function (req, res, next) {
   }
 });
 
-DiscountRouter.delete("/:id", async function (req, res, next) {
+DiscountRouter.delete("/:id", checkAuthorize, async function (req, res, next) {
   try {
     const bus = new DiscountBusConc(new DiscountDalConc());
     const router = new DiscountRouterClass(bus);
@@ -45,10 +46,10 @@ DiscountRouter.delete("/:id", async function (req, res, next) {
   }
 });
 
-DiscountRouter.post("/", async function (req, res, next) {
+DiscountRouter.post("/", checkAuthorize, async function (req, res, next) {
   try {
     const bus = new DiscountBusConc(new DiscountDalConc());
-    
+
     const router = new DiscountRouterClass(bus);
     const result = await router.createOne(req, res, next);
     return res.status(result.status).send(result.message);
@@ -59,7 +60,7 @@ DiscountRouter.post("/", async function (req, res, next) {
   }
 });
 
-DiscountRouter.put("/:id", async function (req, res, next) {
+DiscountRouter.put("/:id", checkAuthorize, async function (req, res, next) {
   try {
     const bus = new DiscountBusConc(new DiscountDalConc());
     const router = new DiscountRouterClass(bus);

@@ -22,7 +22,7 @@ AuthRouter.post(
         //   //httpOnly: true,
         //   expires: dayjs().add(10, "days").toDate(),
         // });
-        res.clearCookie("usercookie");
+        res.clearCookie("x-fighter");
         // res.cookie("usercookie", JSON.stringify(user), {
         //   secure: true,
         //   httpOnly: false,
@@ -32,7 +32,7 @@ AuthRouter.post(
         //   path: "/",
         //   domain: "localhost:3000"
         // });
-        res.cookie("cookieName", JSON.stringify(user.user), {
+        res.cookie("alonefighterx", JSON.stringify(user.user), {
           maxAge: 900000,
           httpOnly: false,
           secure: true,
