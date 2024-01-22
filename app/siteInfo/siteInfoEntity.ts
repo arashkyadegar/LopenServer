@@ -16,11 +16,11 @@ export class SiteInfoEntity {
   googlePlus: string = "";
   instagram: string = "";
   linkedin: string = "";
-  github: string = "";
+  whatsapp: string = "";
   skype: string = "";
 
-  headerImage1: string = "";
-  headerImage2: string = "";
+  headerImages: string[] = [];
+
   logo1: string = "";
   logo2: string = "";
 
@@ -53,8 +53,8 @@ export const SiteInfoSchema = Joi.object({
   github: Joi.string().allow(""),
   skype: Joi.string().allow(""),
 
-  headerImage1: Joi.string().allow(""),
-  headerImage2: Joi.string().allow(""),
+  headerImages: Joi.array().items(Joi.string()).min(3),
+
   logo1: Joi.string().allow(""),
   logo2: Joi.string().allow(""),
 

@@ -33,4 +33,20 @@ UploadRouter.post(
   }
 );
 
+UploadRouter.post(
+  "/logo",
+  [checkAuthorize, upload.single("files")],
+  function (req: any, res) {
+    const result: any = [];
+
+    const x = req.file;
+    result.push(x.filename);
+
+    //const fileName = validator.escape(req.file.filename);
+    res.status(ResponseStatus.OK).send({
+      files: result,
+    });
+  }
+);
+
 module.exports = UploadRouter;

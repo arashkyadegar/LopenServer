@@ -13,7 +13,7 @@ var corsOptions = {
   origin: "http://localhost:3000",
   optionsSuccessStatus: 200,
   methods: "GET, PUT, POST, DELETE",
-  preflightContinue: true,
+  //preflightContinue: true,
   credentials: true,
 };
 

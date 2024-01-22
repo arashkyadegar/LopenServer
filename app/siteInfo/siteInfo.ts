@@ -30,7 +30,7 @@ SiteInfoRouter.get("/", async function (req, res, next) {
     const bus = new SiteInfoBusConc(new SiteInfoDalConc());
     const router = new SiteInfoRouterClass(bus);
     const result = await router.findOne(req, res, next);
-    return res.status(200).send(result);
+    return res.status(200).send(result.message);
   } catch (err: any) {
     const logger = new SiteInfoRouterLogger();
     logger.logError(err, "siteInfo");

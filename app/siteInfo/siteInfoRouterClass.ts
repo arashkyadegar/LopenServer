@@ -14,6 +14,7 @@ export class SiteInfoRouterClass {
   async updateOne(req, res, next) {
     let result;
     const siteInfoEntity = req.body as SiteInfoEntity;
+    console.log(siteInfoEntity);
     const { error } = SiteInfoSchema.validate(siteInfoEntity);
     if (error) {
       this.logger.logError(error, "updateOneSiteInfo");
