@@ -37,11 +37,11 @@ export const SiteInfoSchema = Joi.object({
   _id: Joi.string(),
   address1: Joi.string().allow(''),
   address2: Joi.string().allow(""),
-  tel1: Joi.string().allow(""),
-  tel2: Joi.string().allow(""),
+  tel1: Joi.number().allow(""),
+  tel2: Joi.number().allow(""),
 
-  mobile1: Joi.string().allow(""),
-  mobile2: Joi.string().allow(""),
+  mobile1: Joi.number().allow(""),
+  mobile2: Joi.number().allow(""),
 
   email1: Joi.string().email().allow(''),
   email2: Joi.string().email().allow(""),
@@ -50,7 +50,7 @@ export const SiteInfoSchema = Joi.object({
   googlePlus: Joi.string().allow(""),
   instagram: Joi.string().allow(""),
   linkedin: Joi.string().allow(""),
-  github: Joi.string().allow(""),
+  whatsapp: Joi.string().allow(""),
   skype: Joi.string().allow(""),
 
   headerImages: Joi.array().items(Joi.string()).min(3),

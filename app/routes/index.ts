@@ -3,6 +3,7 @@ var express = require("express");
 const ProductRouter = require("../product/product");
 const ProductWbRouter = require("../productWeb/productWb");
 const SiteInfoRouter = require("../siteInfo/siteInfo");
+const SiteInfoWbRouter = require("../siteInfoWeb/siteInfoWb");
 const LikeWbRouter = require("../likeWeb/likeWb");
 const ScoreWbRouter = require("../scoreWeb/scoreWb");
 const FaqRouter = require("../faq/faq");
@@ -21,6 +22,7 @@ module.exports = function (app) {
   app.use("/api/products", ProductRouter);
   app.use("/api/wbproducts", ProductWbRouter);
   app.use("/api/siteinfos", SiteInfoRouter);
+  app.use("/api/wbsiteinfos", SiteInfoWbRouter);
   app.use("/api/wblikes", LikeWbRouter);
   app.use("/api/wbscores", ScoreWbRouter);
   app.use("/api/faqs", FaqRouter);
