@@ -19,7 +19,6 @@ export class DiscountBusConc implements DiscountBus {
   }
   async findByProductId(productId: string): Promise<boolean> {
     const result = await this.db.findByProductId(productId);
-    console.log(result);
     if (result.length <= 0) return false;
     return true;
   }

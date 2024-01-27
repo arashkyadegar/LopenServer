@@ -34,8 +34,9 @@ AuthRouter.post(
         // });
         res.cookie("alonefighterx", JSON.stringify(user.user), {
           maxAge: 900000,
-          httpOnly: false,
+          httpOnly: true,
           secure: true,
+          sameSite: 'none'
         });
         // res.cookie(
         //   "Set-Cookie",
