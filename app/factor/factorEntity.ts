@@ -14,6 +14,10 @@ export interface IFactor {
   date: Date;
 }
 
+
+
+
+
 export class FactorEntity implements IFactor {
   _id: string = "";
   factorNumber: string = "";
