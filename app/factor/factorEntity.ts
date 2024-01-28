@@ -11,12 +11,18 @@ export interface IFactor {
   price: number;
   statusId: number;
   paymentType: number;
+
+  firstName: string;
+  lastName: string;
+  mobile: string;
+  tel: string;
+  state: string;
+  city: string;
+  postalCode: string;
+  address: string;
+  desc: string;
   date: Date;
 }
-
-
-
-
 
 export class FactorEntity implements IFactor {
   _id: string = "";
@@ -28,6 +34,16 @@ export class FactorEntity implements IFactor {
   price: number = 0;
   statusId: number = 0;
   paymentType: number = 0;
+
+  firstName: string = "";
+  lastName: string = "";
+  mobile: string = "";
+  tel: string = "";
+  state: string = "";
+  city: string = "";
+  postalCode: string = "";
+  address: string = "";
+  desc: string = "";
   date!: Date;
 }
 
@@ -45,5 +61,6 @@ export const FactorSchema = Joi.object({
 });
 
 module.exports = {
-  FactorEntity,FactorSchema
+  FactorEntity,
+  FactorSchema,
 };
