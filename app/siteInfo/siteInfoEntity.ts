@@ -16,11 +16,11 @@ export class SiteInfoEntity {
   googlePlus: string = "";
   instagram: string = "";
   linkedin: string = "";
-  github: string = "";
+  whatsapp: string = "";
   skype: string = "";
 
-  headerImage1: string = "";
-  headerImage2: string = "";
+  headerImages: string[] = [];
+
   logo1: string = "";
   logo2: string = "";
 
@@ -37,11 +37,11 @@ export const SiteInfoSchema = Joi.object({
   _id: Joi.string(),
   address1: Joi.string().allow(''),
   address2: Joi.string().allow(""),
-  tel1: Joi.string().allow(""),
-  tel2: Joi.string().allow(""),
+  tel1: Joi.number().allow(""),
+  tel2: Joi.number().allow(""),
 
-  mobile1: Joi.string().allow(""),
-  mobile2: Joi.string().allow(""),
+  mobile1: Joi.number().allow(""),
+  mobile2: Joi.number().allow(""),
 
   email1: Joi.string().email().allow(''),
   email2: Joi.string().email().allow(""),
@@ -50,11 +50,11 @@ export const SiteInfoSchema = Joi.object({
   googlePlus: Joi.string().allow(""),
   instagram: Joi.string().allow(""),
   linkedin: Joi.string().allow(""),
-  github: Joi.string().allow(""),
+  whatsapp: Joi.string().allow(""),
   skype: Joi.string().allow(""),
 
-  headerImage1: Joi.string().allow(""),
-  headerImage2: Joi.string().allow(""),
+  headerImages: Joi.array().items(Joi.string()).min(3),
+
   logo1: Joi.string().allow(""),
   logo2: Joi.string().allow(""),
 

@@ -10,15 +10,13 @@ var cors = require("cors");
 const path = require("path");
 const fss = require("fs");
 var corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://nextjs-lopencandy.iran.liara.run",
   optionsSuccessStatus: 200,
   methods: "GET, PUT, POST, DELETE",
-  preflightContinue: true,
+  //preflightContinue: true,
   credentials: true,
 };
 
-import jwt from "jsonwebtoken";
-import { checkAuthorize } from "./app/middleware/authorize";
 app.set("view engine", "ejs");
 app.use(cors(corsOptions));
 app.use(bodyParser.json());

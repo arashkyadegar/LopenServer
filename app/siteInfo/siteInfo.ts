@@ -9,9 +9,10 @@ import {
   SiteInfoRouterLogger,
 } from "../logger/siteInfoLogger";
 import { SiteInfoRouterClass } from "./siteInfoRouterClass";
+import { checkAuthorize } from "../middleware/authorize";
 export const SiteInfoRouter = express.Router();
 
-SiteInfoRouter.put("/", async function (req, res, next) {
+SiteInfoRouter.put("/", checkAuthorize, async function (req, res, next) {
   try {
     const bus = new SiteInfoBusConc(new SiteInfoDalConc());
     const router = new SiteInfoRouterClass(bus);
@@ -25,12 +26,12 @@ SiteInfoRouter.put("/", async function (req, res, next) {
   }
 });
 
-SiteInfoRouter.get("/", async function (req, res, next) {
+SiteInfoRouter.get("/", checkAuthorize, async function (req, res, next) {
   try {
     const bus = new SiteInfoBusConc(new SiteInfoDalConc());
     const router = new SiteInfoRouterClass(bus);
     const result = await router.findOne(req, res, next);
-    return res.status(200).send(result);
+    return res.status(200).send(result.message);
   } catch (err: any) {
     const logger = new SiteInfoRouterLogger();
     logger.logError(err, "siteInfo");

@@ -32,7 +32,7 @@ export class ProductWbBusConc implements ProductWbBus {
   async findOne(id: string, wbuserId: string): Promise<ProductWbEntity> {
     const today = new Date();
     const result = await this.db.findOne(id, today.toISOString());
-    console.log(result[0].discounts);
+    //console.log(result[0].discounts);
     //check if product discount is allowed or not
     if (result[0].discounts.length > 0) {
       let element = _.first(result[0].discounts);
