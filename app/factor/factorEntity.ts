@@ -12,8 +12,8 @@ export interface IFactor {
   statusId: number;
   paymentType: number;
 
-  firstName: string;
-  lastName: string;
+  fName: string;
+  lName: string;
   mobile: string;
   tel: string;
   state: string;
@@ -35,8 +35,8 @@ export class FactorEntity implements IFactor {
   statusId: number = 0;
   paymentType: number = 0;
 
-  firstName: string = "";
-  lastName: string = "";
+  fName: string = "";
+  lName: string = "";
   mobile: string = "";
   tel: string = "";
   state: string = "";
@@ -58,6 +58,15 @@ export const FactorSchema = Joi.object({
   statusId: Joi.number(),
   paymentType: Joi.number(),
   date: Joi.string().allow(""),
+  fName: Joi.string(),
+  lName: Joi.string(),
+  mobile: Joi.string(),
+  tel: Joi.string(),
+  state: Joi.string(),
+  city: Joi.string(),
+  postalCode: Joi.string(),
+  address: Joi.string(),
+  desc: Joi.string().allow("")
 });
 
 module.exports = {

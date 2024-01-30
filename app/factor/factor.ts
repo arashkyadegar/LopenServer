@@ -33,9 +33,12 @@ FactorRouter.get("/:id", async function (req, res, next) {
 
 FactorRouter.post("/", async function (req, res, next) {
   try {
+
     const bus = new FactorBusConc(new FactorDalConc());
     const router = new FactorRouterClass(bus);
     const result = await router.createOne(req, res, next);
+
+    
     return res.status(result.status).send(result.message);
   } catch (err: any) {
     const logger = new FactorRouterLogger();

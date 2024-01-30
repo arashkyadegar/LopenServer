@@ -10,7 +10,8 @@ var cors = require("cors");
 const path = require("path");
 const fss = require("fs");
 var corsOptions = {
-  origin: "https://nextjs-lopencandy.iran.liara.run",
+  // origin: "https://nextjs-lopencandy.iran.liara.run",
+  origin:"http://localhost:3000",
   optionsSuccessStatus: 200,
   methods: "GET, PUT, POST, DELETE",
   //preflightContinue: true,

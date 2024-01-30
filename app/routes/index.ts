@@ -10,6 +10,7 @@ const FaqRouter = require("../faq/faq");
 const FaqWbRouter = require("../faqWeb/faqWb");
 const FactorRouter = require("../factor/factor");
 const FactorDetailRouter = require("../factorDetail/factorDetail");
+const FactorDetailWbRouter = require("../factorDetailWeb/factorDetailWb");
 const DiscountRouter = require("../discount/discount");
 const CommentRouter = require("../comment/comment");
 const CommentWbRouter = require("../commentWeb/commentWb");
@@ -29,6 +30,7 @@ module.exports = function (app) {
   app.use("/api/wbfaqs", FaqWbRouter);
   app.use("/api/factors", FactorRouter);
   app.use("/api/factordetails", FactorDetailRouter);
+  app.use("/api/wbfactordetails", FactorDetailWbRouter);
   app.use("/api/discounts", DiscountRouter);
   app.use("/api/comments", CommentRouter);
   app.use("/api/wbcomments", CommentWbRouter);

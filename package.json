@@ -4,7 +4,7 @@
   "description": "mr talati's candie's shop webSite",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -w",
     "start": "node dist/app.js",
     "test": "mocha",
     "dev": "npx tailwindcss -i ./public/input.css -o ./public/output.css --watch"

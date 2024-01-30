@@ -1,3 +1,5 @@
+import { FactorDetailRouter } from "../factorDetail/factorDetail";
+import { FactorDetailEntity } from "../factorDetail/factorDetailEntity";
 import { getRandomString } from "../utility/randomStr";
 import { FactorDal } from "./factorDal";
 import { FactorEntity } from "./factorEntity";
@@ -15,6 +17,7 @@ export class FactorBusConc implements FactorBus {
   constructor(db: FactorDal) {
     this.db = db;
   }
+
   async updateOne(id: string, entity: FactorEntity): Promise<boolean> {
     const result = await this.db.updateOne(id, entity);
     return result;
@@ -25,7 +28,9 @@ export class FactorBusConc implements FactorBus {
   }
   async createOne(entity: FactorEntity): Promise<boolean> {
     entity.factorNumber = getRandomString();
+    //console.log(entity);
     const result = await this.db.createOne(entity);
+    ///foreach items
     return result;
   }
   deleteOne(id: string): Promise<boolean> {

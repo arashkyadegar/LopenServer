@@ -18,38 +18,51 @@ export class FactorDalConc implements FactorDal {
     this.logger = new FactorDalLogger();
   }
   async updateOne(id: string, entity: FactorEntity): Promise<boolean> {
-
-     let result;
-     try {
-       const objectId = new ObjectId(id);
-       const collection = MongoDb.dbconnect("factors");
-       await collection.then((factors) => {
-         result = factors.updateOne(
-           {
-             _id: objectId,
-           },
-           {
-             $set: {
-               factorNumber:validator.escape( entity.factorNumber),
-               wbuserId:validator.escape( entity.wbuserId),
-               refCode:validator.escape( entity.refCode),
-               factorContent:validator.escape( entity.factorContent),
-               additionalInfo:validator.escape( entity.additionalInfo),
-               price: entity.price,
-               statusId: entity.statusId,
-               paymentType: entity.paymentType,
-               date: Date.now(),
-             },
-           }
-         );
-       });
-     } catch (err: any) {
-       this.logger.logError(err, "updateOne");
-     }
-     return result;
+    let result;
+    try {
+      const objectId = new ObjectId(id);
+      const collection = MongoDb.dbconnect("factors");
+      await collection.then((factors) => {
+        result = factors.updateOne(
+          {
+            _id: objectId,
+          },
+          {
+            $set: {
+              factorNumber: validator.escape(entity.factorNumber),
+              wbuserId: validator.escape(entity.wbuserId),
+              refCode: validator.escape(entity.refCode),
+              factorContent: validator.escape(entity.factorContent),
+              additionalInfo: validator.escape(entity.additionalInfo),
+              price: entity.price,
+              statusId: entity.statusId,
+              paymentType: entity.paymentType,
+              date: Date.now(),
+            },
+          }
+        );
+      });
+    } catch (err: any) {
+      this.logger.logError(err, "updateOne");
+    }
+    return result;
   }
   async findOne(id: string): Promise<FactorEntity> {
-    throw new Error("Method not implemented.");
+    let result;
+    try {
+      let objectId = new ObjectId(id);
+      const collection = MongoDb.dbconnect("factors");
+      await collection.then((factors) => {
+        result = factors
+          .aggregate([
+            { $match: { _id: objectId } }
+          ])
+          .toArray();
+      });
+    } catch (err: any) {
+      this.logger.logError(err, "findOne");
+    }
+    return result;
   }
   async createOne(entity: FactorEntity): Promise<boolean> {
     let result;
@@ -57,14 +70,23 @@ export class FactorDalConc implements FactorDal {
       const collection = MongoDb.dbconnect("factors");
       await collection.then((factors) => {
         result = factors.insertOne({
-          factorNumber:validator.escape( entity.factorNumber),
-          wbuserId:validator.escape( entity.wbuserId),
-          refCode:validator.escape( entity.refCode),
-          factorContent:validator.escape( entity.factorContent),
-          additionalInfo:validator.escape( entity.additionalInfo),
-          price:entity.price,
+          factorNumber: validator.escape(entity.factorNumber),
+          wbuserId: validator.escape(entity.wbuserId),
+          refCode: validator.escape(entity.refCode),
+          factorContent: validator.escape(entity.factorContent),
+          additionalInfo: validator.escape(entity.additionalInfo),
+          price: entity.price,
           statusId: entity.statusId,
           paymentType: entity.paymentType,
+          fName: validator.escape(entity.fName),
+          lName: validator.escape(entity.lName),
+          mobile: validator.escape(entity.mobile),
+          tel: validator.escape(entity.tel),
+          state: validator.escape(entity.state),
+          city: validator.escape(entity.city),
+          postalCode: validator.escape(entity.postalCode),
+          address: validator.escape(entity.address),
+          desc: validator.escape(entity.desc),
           date: Date.now(),
         });
       });

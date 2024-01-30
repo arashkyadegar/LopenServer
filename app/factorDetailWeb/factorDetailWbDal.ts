@@ -91,10 +91,10 @@ export class FactorDetailWbDalConc implements FactorDetailWbDal {
                 as: "product",
               },
             },
-            { $addFields: { liked: false } },
+            { $addFields: { productName: { $first: "$product.name" } } },
             {
               $project: {
-                "product.name": 1,
+                "productName": 1,
                 factorId: 1,
                 productId: 1,
                 unitPrice: 1,
