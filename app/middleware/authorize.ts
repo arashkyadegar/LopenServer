@@ -28,9 +28,10 @@ export const checkAuthorize = async function (req, res, next) {
     }
     const decodedToken = await coder.decode(token);
     const rslt = jwt.verify(decodedToken, process.env.SECRET_KEY || "abc");
+    console.log(rslt);
     return next();
   } catch (err) {
-    console.log(err);
+    //console.log(err);
     return res.status(ResponseStatus.UNAUTHORIZED).send(err);
   }
 };

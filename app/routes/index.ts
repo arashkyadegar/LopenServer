@@ -18,7 +18,7 @@ const ProductContorllerRouter = require("../controllers/productController");
 const DiscountContorllerRouter = require("../controllers/discountController");
 const UploadRouter = require("../upload/upload");
 const AuthRouter = require("../auth/auth");
-
+const UserRouter = require("../user/user");
 module.exports = function (app) {
   app.use("/api/products", ProductRouter);
   app.use("/api/wbproducts", ProductWbRouter);
@@ -38,4 +38,5 @@ module.exports = function (app) {
   app.use("/api/auth", AuthRouter);
   app.use("/products", ProductContorllerRouter);
   app.use("/discounts", DiscountContorllerRouter);
+  app.use("/api/users", UserRouter);
 };

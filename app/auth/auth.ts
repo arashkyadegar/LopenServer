@@ -62,7 +62,7 @@ AuthRouter.post(
         //   httpOnly: false,
         //   sameSite:"lax"
         // });
-         res.status(ResponseStatus.OK).json(user);
+         res.status(ResponseStatus.OK).json({user:'logged'});
       } catch (error) {
         res.send({ rslt: "not true" });
       }
