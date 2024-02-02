@@ -4,7 +4,7 @@ import { ProductDalConc } from "./productDal";
 import { ProductRouterLogger } from "../logger/productLogger";
 import { ProductRouterClass } from "./productRouterClass";
 import { ResponseStatus } from "../utility/errorStatus";
-import { checkAuthorize } from "../middleware/authorize";
+import { checkAuthorize, checkAuthorize2 } from "../middleware/authorize";
 export const ProductRouter = express.Router();
 const multer = require("multer");
 
@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
-ProductRouter.get("/", async function (req, res, next) {
+ProductRouter.get("/", checkAuthorize, async function (req, res, next) {
   try {
     const bus = new ProductBusConc(new ProductDalConc());
     const router = new ProductRouterClass(bus);
@@ -32,7 +32,7 @@ ProductRouter.get("/", async function (req, res, next) {
   }
 });
 
-ProductRouter.get("/:id", async function (req, res, next) {
+ProductRouter.get("/:id", checkAuthorize, async function (req, res, next) {
   try {
     const bus = new ProductBusConc(new ProductDalConc());
     const router = new ProductRouterClass(bus);
@@ -45,7 +45,7 @@ ProductRouter.get("/:id", async function (req, res, next) {
   }
 });
 
-ProductRouter.delete("/:id", async function (req, res, next) {
+ProductRouter.delete("/:id", checkAuthorize, async function (req, res, next) {
   try {
     const bus = new ProductBusConc(new ProductDalConc());
     const router = new ProductRouterClass(bus);
@@ -80,7 +80,7 @@ ProductRouter.post("/", upload.none(), async function (req: any, res, next) {
   }
 });
 
-ProductRouter.put("/:id", async function (req, res, next) {
+ProductRouter.put("/:id", checkAuthorize, async function (req, res, next) {
   try {
     const bus = new ProductBusConc(new ProductDalConc());
     const router = new ProductRouterClass(bus);

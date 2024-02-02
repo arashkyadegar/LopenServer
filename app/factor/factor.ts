@@ -33,12 +33,10 @@ FactorRouter.get("/:id", async function (req, res, next) {
 
 FactorRouter.post("/", async function (req, res, next) {
   try {
-
     const bus = new FactorBusConc(new FactorDalConc());
     const router = new FactorRouterClass(bus);
     const result = await router.createOne(req, res, next);
 
-    
     return res.status(result.status).send(result.message);
   } catch (err: any) {
     const logger = new FactorRouterLogger();
@@ -56,6 +54,19 @@ FactorRouter.put("/:id", async function (req, res, next) {
   } catch (err: any) {
     const logger = new FactorRouterLogger();
     logger.logError(err, "put /:id");
+    next(err);
+  }
+});
+
+FactorRouter.delete("/:id", async function (req, res, next) {
+  try {
+    const bus = new FactorBusConc(new FactorDalConc());
+    const router = new FactorRouterClass(bus);
+    const result = await router.deleteOne(req, res, next);
+    return res.status(result.status).send(result.message);
+  } catch (err: any) {
+    const logger = new FactorRouterLogger();
+    logger.logError(err, "delete /:id");
     next(err);
   }
 });

@@ -22,7 +22,7 @@ AuthRouter.post(
         //   //httpOnly: true,
         //   expires: dayjs().add(10, "days").toDate(),
         // });
-        res.clearCookie("x-fighter");
+        res.clearCookie("alonefighterx");
         // res.cookie("usercookie", JSON.stringify(user), {
         //   secure: true,
         //   httpOnly: false,
@@ -62,7 +62,7 @@ AuthRouter.post(
         //   httpOnly: false,
         //   sameSite:"lax"
         // });
-         res.status(ResponseStatus.OK).send(user);
+         res.status(ResponseStatus.OK).json(user);
       } catch (error) {
         res.send({ rslt: "not true" });
       }

@@ -28,13 +28,12 @@ export class FactorBusConc implements FactorBus {
   }
   async createOne(entity: FactorEntity): Promise<boolean> {
     entity.factorNumber = getRandomString();
-    //console.log(entity);
     const result = await this.db.createOne(entity);
-    ///foreach items
     return result;
   }
-  deleteOne(id: string): Promise<boolean> {
-    throw new Error("Method not implemented.");
+  async deleteOne(id: string): Promise<boolean> {
+    const result = await this.db.deleteOne(id);
+    return result;
   }
   async findAll(): Promise<FactorEntity[]> {
     const result = await this.db.findAll();

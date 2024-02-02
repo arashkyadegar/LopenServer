@@ -95,8 +95,21 @@ export class FactorDalConc implements FactorDal {
     }
     return result;
   }
-  deleteOne(id: string): Promise<boolean> {
-    throw new Error("Method not implemented.");
+  async deleteOne(id: string): Promise<boolean> {
+    let result;
+    try {
+      let objectId = new ObjectId(id);
+      const collection = MongoDb.dbconnect("factors");
+      await collection.then((factors) => {
+        result = factors.deleteOne({
+          _id: objectId,
+        });
+      });
+    } catch (err: any) {
+      this.logger.logError(err, "deleteOne");
+      return err;
+    }
+    return result;
   }
   async findAll(): Promise<FactorEntity[]> {
     let result;

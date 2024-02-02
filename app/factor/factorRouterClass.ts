@@ -3,10 +3,6 @@ import { FactorBus } from "./factorBus";
 import { ResponseStatus } from "../utility/errorStatus";
 import { FactorEntity, FactorSchema } from "./factorEntity";
 import { FactorRouterClassLogger } from "../logger/factorLogger";
-import { FactorDetailEntity } from "../factorDetail/factorDetailEntity";
-import { FactorDetailBusConc } from "../factorDetail/factorDetailBus";
-import { FactorDalConc } from "./factorDal";
-import { FactorDetailDalConc } from "../factorDetail/factorDetailDal";
 import { FactorDetailWbBusConc } from "../factorDetailWeb/factorDetailWbBus";
 import { FactorDetailWbDalConc } from "../factorDetailWeb/factorDetailWbDal";
 
@@ -146,5 +142,34 @@ export class FactorRouterClass {
       message: result,
     };
   }
+
+  async deleteOne(req, res, next) {
+    let result;
+    if (req.params.id === undefined) {
+      const errorResponse = `validation failed. id is not provided`;
+      this.logger.logError(errorResponse, "deleteOne");
+      return {
+        status: ResponseStatus.BAD_REQUEST,
+        message: errorResponse,
+      };
+    }
+
+    if (!validator.isMongoId(req.params.id.toString())) {
+      const errorResponse = `validation failed. id is not valid`;
+      this.logger.logError(errorResponse, "deleteOne");
+      return {
+        status: ResponseStatus.BAD_REQUEST,
+        message: errorResponse,
+      };
+    }
+
+    let id = req.params.id;
+    result = await this.bus.deleteOne(id);
+    return {
+      status: ResponseStatus.OK,
+      message: result,
+    };
+  }
+
 }
 module.exports = { FactorRouterClass };

@@ -8,10 +8,15 @@ var express = require("express");
 var app = express();
 var cors = require("cors");
 const path = require("path");
-const fss = require("fs");
+const fs = require("fs");
+var options = {
+  key: fs.readFileSync("id_rsa"),
+  cert: fs.readFileSync("id_rsa.pub"),
+};
+
 var corsOptions = {
-  // origin: "https://nextjs-lopencandy.iran.liara.run",
-  origin:"http://localhost:3000",
+ // origin: "https://nextjs-lopencandy.iran.liara.run",
+ origin:"http://localhost:3000",
   optionsSuccessStatus: 200,
   methods: "GET, PUT, POST, DELETE",
   //preflightContinue: true,
@@ -32,37 +37,6 @@ app.use(express.static(__dirname + "./public"));
 app.use(express.static(path.resolve("./public")));
 require("./app/routes/index")(app);
 
-// app.post("/test", async function (req: any, res: any) {
-//   const coder = new Base64();
-//   const token = jwt.sign(
-//     { user_id: "user[0]._id", email: "arashk@gmail.com" },
-//     "abc", ///temprory TOKEN_KEY
-//     {
-//       expiresIn: "2h",
-//     }
-//   );
-//   const encodedToken = coder.encode(token);
-//   const decodedToken = coder.decode(encodedToken);
-//   const rslt = jwt.verify(decodedToken, process.env.SECRET_KEY || "abc");
-//   res.send(rslt);
-// });
-
-// app.post("/api/auth/login1/", function (req: any, res: any) {
-//   res.clearCookie("cookieName");
-//   res.cookie("cookieName", "arashk yadegar", {
-//     maxAge: 900000,
-//     httpOnly: false,
-//     secure: true,
-//   });
-//   res.send("hello world");
-// });
-
-// app.get("/api/auth/login1/",checkAuthorize, function (req: any, res: any) {
-
-//   res.send({ message: "goodbye" });
-// });
-
 app.listen(process.env.PORT, () =>
   console.log(`app listening on ${process.env.PORT}`)
 );
-module.exports = app;
