@@ -48,6 +48,7 @@ export class FaqRouterClass {
   }
 
   async findOne(req, res, next) {
+    console.log(req);
     let result;
     if (req.params.id === undefined) {
       const errorResponse = `validation failed. id is not provided`;

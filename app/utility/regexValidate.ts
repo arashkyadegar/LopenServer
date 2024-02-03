@@ -16,3 +16,6 @@ export const validatePassword = (p: string) => {
   });
   return counter;
 };
+
+export const rgx_insecure = /[$\(\)<>"'#%{}~!"^|]/;
+export const rgx_date = /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/;

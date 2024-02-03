@@ -1,3 +1,5 @@
+import { rgx_insecure } from "../utility/regexValidate";
+
 const Joi = require("joi");
 export class FaqEntity {
   _id: string = "";
@@ -6,17 +8,28 @@ export class FaqEntity {
   answer: string = "";
   display: boolean = true;
   priority: number = 0;
-  date!:Date;
+  date!: Date;
 }
 
 export const FaqSchema = Joi.object({
-  _id: Joi.string().allow(''),
+  _id: Joi.string().allow(""),
   groupId: Joi.number(),
-  question: Joi.string(),
-  answer: Joi.string(),
+  question: Joi.string()
+    .required()
+    .regex(rgx_insecure, { invert: true })
+    .messages({
+      "string.pattern.invert.base": "کاراکترهای غیر مجاز",
+    }),
+  answer: Joi.string()
+    .required()
+    .regex(rgx_insecure, { invert: true })
+    .messages({
+      "string.pattern.invert.base": "کاراکترهای غیر مجاز",
+    }),
+
   display: Joi.boolean(),
   priority: Joi.number(),
-  date: Joi.date().timestamp().allow(''),
+  date: Joi.date().timestamp().allow(""),
 });
 
 module.exports = {

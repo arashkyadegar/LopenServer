@@ -16,7 +16,7 @@ const bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var express = require("express");
 var app = express();
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(helmet());
 app.use(limiter);
 var cors = require("cors");
 const path = require("path");

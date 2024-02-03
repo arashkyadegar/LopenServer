@@ -1,3 +1,5 @@
+import { rgx_date, rgx_insecure } from "../utility/regexValidate";
+
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 
@@ -20,13 +22,18 @@ export class DiscountEntity {
 
 export const DiscountSchema = Joi.object({
   _id: Joi.objectId().allow(""),
-  sDate: Joi.string(),
-  eDate: Joi.string(),
-  title: Joi.string(),
+  sDate: Joi.string().regex(rgx_date).messages({
+    "string.pattern.base": "فرمت نادرست تاریخ",
+  }),
+  eDate: Joi.string().regex(rgx_date).messages({
+    "string.pattern.base": "فرمت نادرست تاریخ",
+  }),
+  title: Joi.string().regex(rgx_insecure, { invert: true }).messages({
+    "string.pattern.invert.base": "کاراکترهای غیر مجاز",
+  }),
   type: Joi.number(),
   value: Joi.number(),
   productId: Joi.string().allow(""),
-
   date: Joi.string().allow(""),
 });
 

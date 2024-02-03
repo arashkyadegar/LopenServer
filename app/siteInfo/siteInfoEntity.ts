@@ -35,7 +35,7 @@ export class SiteInfoEntity {
 
 export const SiteInfoSchema = Joi.object({
   _id: Joi.string(),
-  address1: Joi.string().allow(''),
+  address1: Joi.string().allow(""),
   address2: Joi.string().allow(""),
   tel1: Joi.number().allow(""),
   tel2: Joi.number().allow(""),
@@ -43,7 +43,7 @@ export const SiteInfoSchema = Joi.object({
   mobile1: Joi.number().allow(""),
   mobile2: Joi.number().allow(""),
 
-  email1: Joi.string().email().allow(''),
+  email1: Joi.string().email().allow(""),
   email2: Joi.string().email().allow(""),
 
   twitter: Joi.string().allow(""),

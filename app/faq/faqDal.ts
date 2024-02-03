@@ -19,7 +19,7 @@ export class FaqDalConc implements FaqDal {
   async updateOne(id: string, entity: FaqEntity): Promise<boolean> {
     let result;
     try {
-      const objectId = new ObjectId(id);
+      const objectId = new ObjectId(validator.escape(id));
       const collection = MongoDb.dbconnect("faqs");
       await collection.then((faqs) => {
         result = faqs.updateOne(
@@ -47,7 +47,7 @@ export class FaqDalConc implements FaqDal {
   async findOne(id: string): Promise<FaqEntity> {
     let result;
     try {
-      const objectId = new ObjectId(id);
+      const objectId = new ObjectId(validator.escape(id));
       const collection = MongoDb.dbconnect("faqs");
       await collection.then((faqs) => {
         result = faqs.find({ _id: objectId }).toArray();
@@ -60,7 +60,6 @@ export class FaqDalConc implements FaqDal {
   async createOne(entity: FaqEntity): Promise<boolean> {
     let result;
     try {
-
       const collection = MongoDb.dbconnect("faqs");
       await collection.then((faqs) => {
         result = faqs.insertOne({
@@ -80,7 +79,7 @@ export class FaqDalConc implements FaqDal {
   async deleteOne(id: string): Promise<boolean> {
     let result;
     try {
-      let objectId = new ObjectId(id);
+      let objectId = new ObjectId(validator.escape(id));
       const collection = MongoDb.dbconnect("faqs");
       await collection.then((faqs) => {
         result = faqs.deleteOne({

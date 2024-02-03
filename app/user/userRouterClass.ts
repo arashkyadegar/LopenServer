@@ -38,11 +38,11 @@ export class UserRouterClass {
     }
  
     const decoder = new HashPassword();
-    const username_hash = await decoder.createHash(userEntity.username);
+    ///const username_hash = await decoder.createHash(userEntity.username);
     const password_hash = await decoder.createHash(userEntity.password);
 
     let hashedUser = new UserEntity();
-    hashedUser.username = username_hash;
+    hashedUser.username = userEntity.username;
     hashedUser.password = password_hash;
 
     result = await this.bus.createOne(hashedUser);
