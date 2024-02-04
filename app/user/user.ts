@@ -23,24 +23,6 @@ UserRouter.post("/", async function (req, res, next) {
     next(err);
   }
 
-  // try {
-  //   const decoder = new HashPassword();
-  //   const username = req.body.username;
-  //   const password = req.body.password;
-  //   const result = validatePassword(password);
-
-  //   const username_hash = await decoder.createHash(username);
-  //   const password_hash = await decoder.createHash(password);
-
-  //   console.log(result);
-  //   return res
-  //     .status(200)
-  //     .json({ username_hash: username_hash, password_hash: password_hash });
-  // } catch (err: any) {
-  //   const logger = new UserRouterLogger();
-  //   logger.logError(err, "post /");
-  //   next(err);
-  // }
 });
 
 module.exports = UserRouter;
