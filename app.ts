@@ -16,8 +16,8 @@ const bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var express = require("express");
 var app = express();
-app.use(helmet());
-app.use(limiter);
+// app.use(helmet());
+// app.use(limiter);
 var cors = require("cors");
 const path = require("path");
 const fs = require("fs");
@@ -27,8 +27,8 @@ var options = {
 };
 
 var corsOptions = {
-   origin: "https://nextjs-lopencandy.iran.liara.run",
-  //origin: "http://localhost:3000",
+  // origin: "https://nextjs-lopencandy.iran.liara.run",
+  origin: "http://localhost:3000",
   optionsSuccessStatus: 200,
   methods: "GET, PUT, POST, DELETE",
   //preflightContinue: true,

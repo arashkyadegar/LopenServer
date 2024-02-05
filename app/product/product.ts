@@ -60,14 +60,6 @@ ProductRouter.delete("/:id", checkAuthorize, async function (req, res, next) {
 
 ProductRouter.post("/", upload.none(), async function (req: any, res, next) {
   try {
-    // const result: any = [];
-    // console.log(req.body);
-
-    // //const fileName = validator.escape(req.file.filename);
-    // return res.status(ResponseStatus.OK).send({
-    //   files: result,
-    // });
-
     const bus = new ProductBusConc(new ProductDalConc());
     const router = new ProductRouterClass(bus);
     const result = await router.createOne(req, res, next);
