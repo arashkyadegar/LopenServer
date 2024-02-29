@@ -14,6 +14,7 @@ export const SiteInfoRouter = express.Router();
 
 SiteInfoRouter.put("/", checkAuthorize, async function (req, res, next) {
   try {
+    console.log(req.body)
     const bus = new SiteInfoBusConc(new SiteInfoDalConc());
     const router = new SiteInfoRouterClass(bus);
     const result = await router.updateOne(req, res, next);

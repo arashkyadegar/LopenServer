@@ -18,4 +18,6 @@ export const validatePassword = (p: string) => {
 };
 
 export const rgx_insecure = /[$\(\)<>"'#%{}~!"^|]/;
-export const rgx_date = /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/;
+ export const rgx_date = /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/;
+//export const rgx_date = /^\d{۴}\-(۰[۱-۹]|۱[۰۱۲])\-(۰[۱-۹]|[۱۲][۰-۹]|۳[۰۱])$/;
+export const rgx_frNo =  /^[۰-۹]+$/;

@@ -14,18 +14,8 @@ export class FaqEntity {
 export const FaqSchema = Joi.object({
   _id: Joi.string().allow(""),
   groupId: Joi.number(),
-  question: Joi.string()
-    .required()
-    .regex(rgx_insecure, { invert: true })
-    .messages({
-      "string.pattern.invert.base": "کاراکترهای غیر مجاز",
-    }),
-  answer: Joi.string()
-    .required()
-    .regex(rgx_insecure, { invert: true })
-    .messages({
-      "string.pattern.invert.base": "کاراکترهای غیر مجاز",
-    }),
+  question: Joi.string().required().regex(rgx_insecure, { invert: true }),
+  answer: Joi.string().required().regex(rgx_insecure, { invert: true }),
 
   display: Joi.boolean(),
   priority: Joi.number(),

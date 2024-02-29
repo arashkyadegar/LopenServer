@@ -1,4 +1,4 @@
-import { DiscountEntity } from "../discount/discountEntity";
+import { rgx_frNo } from "../utility/regexValidate";
 
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
@@ -31,43 +31,22 @@ export class ProductWbEntity extends ProductEntity {
 }
 export const ProductSchema = Joi.object({
   _id: Joi.objectId().allow(""),
-  name: Joi.string().messages({
-    "string.empty": "نام محصول الزامی میباشد",
-  }),
-  weight: Joi.number().messages({
-    "number.base": "وزن محصول باید عدد صحیح باشد",
-  }),
-  size: Joi.string().messages({
-    "string.empty": "سایز محصول الزامی میباشد",
-  }),
-  healthId: Joi.string().messages({
-    "string.empty": "شناسه سلامت محصول الزامی میباشد",
-  }),
-  type: Joi.string().messages({
-    "string.empty": "نوع محصول الزامی میباشد",
-  }),
-  components: Joi.string().messages({
-    "string.empty": "ترکیبات  محصول الزامی میباشد",
-  }),
-  desc: Joi.string().messages({
-    "string.empty": "توضیحات  محصول الزامی میباشد",
-  }),
-  score: Joi.number().messages({
-    "number.base": "امتیاز محصول باید عدد صحیح باشد",
-  }),
+  name: Joi.string(),
+  weight: Joi.string().required().regex(rgx_frNo),
+  size: Joi.string(),
+  healthId: Joi.string(),
+  type: Joi.string(),
+  components: Joi.string(),
+  desc: Joi.string(),
+  score: Joi.string().required().regex(rgx_frNo),
 
-  price: Joi.number().required(),
+  price: Joi.string().required().regex(rgx_frNo),
   display: Joi.boolean(),
   isAvailable: Joi.boolean(),
   image: Joi.string().allow(""),
-  images: Joi.array().items(Joi.string()).min(3).messages({
-    "array.base": "  حداقل ۳ تصویر باید وارد کنید",
-  }),
-  tags: Joi.array().items(Joi.string()).min(1).messages({
-    "array.base": "  حداقل ۱ برچسب  باید وارد کنید",
-    "string.empty": "برچسب  محصول الزامی میباشد",
-  }),
-  files:Joi.array(),
+  images: Joi.array().items(Joi.string()).min(3),
+  tags: Joi.array().items(Joi.string()).min(1),
+  files: Joi.array(),
   userId: Joi.string().allow(""),
   date: Joi.string().allow(""),
 });
