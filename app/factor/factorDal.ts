@@ -81,6 +81,7 @@ export class FactorDalConc implements FactorDal {
           fName: validator.escape(entity.fName),
           lName: validator.escape(entity.lName),
           mobile: validator.escape(entity.mobile),
+          email:validator.escape(entity.email),
           tel: validator.escape(entity.tel),
           state: validator.escape(entity.state),
           city: validator.escape(entity.city),

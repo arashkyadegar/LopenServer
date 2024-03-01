@@ -15,6 +15,7 @@ export interface IFactor {
   fName: string;
   lName: string;
   mobile: string;
+  email:string;
   tel: string;
   state: string;
   city: string;
@@ -40,6 +41,7 @@ export class FactorEntity implements IFactor {
   mobile: string = "";
   tel: string = "";
   state: string = "";
+  email:string="";
   city: string = "";
   postalCode: string = "";
   address: string = "";
@@ -61,6 +63,7 @@ export const FactorSchema = Joi.object({
   fName: Joi.string(),
   lName: Joi.string(),
   mobile: Joi.string(),
+  email:Joi.string().email(),
   tel: Joi.string(),
   state: Joi.string(),
   city: Joi.string(),
