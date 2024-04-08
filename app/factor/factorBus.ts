@@ -27,7 +27,7 @@ export class FactorBusConc implements FactorBus {
     return result;
   }
   async createOne(entity: FactorEntity): Promise<boolean> {
-    entity.factorNumber = getRandomString();
+    // entity.factorNumber = getRandomString();
     const result = await this.db.createOne(entity);
     return result;
   }

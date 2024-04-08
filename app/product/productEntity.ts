@@ -32,15 +32,15 @@ export class ProductWbEntity extends ProductEntity {
 export const ProductSchema = Joi.object({
   _id: Joi.objectId().allow(""),
   name: Joi.string(),
-  weight: Joi.string().required().regex(rgx_frNo),
+  weight: Joi.string().required(),
   size: Joi.string(),
   healthId: Joi.string(),
   type: Joi.string(),
   components: Joi.string(),
   desc: Joi.string(),
-  score: Joi.string().required().regex(rgx_frNo),
+  score: Joi.number().required(),
 
-  price: Joi.string().required().regex(rgx_frNo),
+  price: Joi.string().required(),
   display: Joi.boolean(),
   isAvailable: Joi.boolean(),
   image: Joi.string().allow(""),

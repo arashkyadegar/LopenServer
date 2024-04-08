@@ -147,6 +147,7 @@ export class ProductRouterClass {
   async createOne(req, res, next): Promise<any> {
     let result;
     const productEntity = req.body as ProductEntity;
+
     const { error } = ProductSchema.validate(productEntity);
     if (error) {
       const errorResponse = `validation failed. errors: ${error} `;

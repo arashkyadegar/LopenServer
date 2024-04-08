@@ -81,13 +81,23 @@ export class FactorDalConc implements FactorDal {
           fName: validator.escape(entity.fName),
           lName: validator.escape(entity.lName),
           mobile: validator.escape(entity.mobile),
-          email:validator.escape(entity.email),
+          email: validator.escape(entity.email),
           tel: validator.escape(entity.tel),
           state: validator.escape(entity.state),
           city: validator.escape(entity.city),
           postalCode: validator.escape(entity.postalCode),
           address: validator.escape(entity.address),
           desc: validator.escape(entity.desc),
+
+          cardnumber: entity.cardnumber,
+          digitalreceipt: entity.digitalreceipt,
+          respcode: entity.respcode,
+          invoiceid: entity.invoiceid,
+          tracenumber: entity.tracenumber,
+          rrn: entity.rrn,
+          datePaid: entity.datePaid,
+          issuerbank: entity.issuerbank,
+
           date: Date.now(),
         });
       });

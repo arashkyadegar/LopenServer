@@ -16,6 +16,43 @@ export class EmailLogger implements IBaseLogger {
   }
 }
 
+
+export class EmailRouterLogger implements IBaseLogger {
+  logger: WinstonLogger;
+  constructor(){
+    this.logger= new WinstonLogger("EmailRouter");
+  }
+
+  logError(err: string, method: string): void {
+    const instance = this.logger.getLogger(method);
+    instance.error(err);
+  }
+  logInfo(err: string, method: string): void {
+    const instance = this.logger.getLogger(method);
+    instance.info(err);
+  }
+}
+
+
+export class EmailRouterClassLogger implements IBaseLogger  {
+  logger: WinstonLogger;
+  constructor(){
+    this.logger= new WinstonLogger("EmailRouterClass");
+  }
+
+  logError(err: string,method: string): void {
+    const instance = this.logger.getLogger(method);
+    instance.error(err);
+  }
+
+  logInfo(err: string,method: string): void {
+    const instance = this.logger.getLogger(method);
+    instance.info(err);
+  }
+}
+
 module.exports = {
   EmailLogger,
+  EmailRouterLogger,
+  EmailRouterClassLogger
 };

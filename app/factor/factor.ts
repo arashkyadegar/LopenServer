@@ -6,7 +6,7 @@ import { FactorRouterClass } from "./factorRouterClass";
 import { checkAuthorize } from "../middleware/authorize";
 export const FactorRouter = express.Router();
 
-FactorRouter.get("/",checkAuthorize, async function (req, res, next) {
+FactorRouter.get("/", checkAuthorize, async function (req, res, next) {
   try {
     const bus = new FactorBusConc(new FactorDalConc());
     const router = new FactorRouterClass(bus);
@@ -19,7 +19,7 @@ FactorRouter.get("/",checkAuthorize, async function (req, res, next) {
   }
 });
 
-FactorRouter.get("/:id",checkAuthorize, async function (req, res, next) {
+FactorRouter.get("/:id", checkAuthorize, async function (req, res, next) {
   try {
     const bus = new FactorBusConc(new FactorDalConc());
     const router = new FactorRouterClass(bus);
@@ -32,7 +32,7 @@ FactorRouter.get("/:id",checkAuthorize, async function (req, res, next) {
   }
 });
 
-FactorRouter.post("/", checkAuthorize,async function (req, res, next) {
+FactorRouter.post("/", async function (req, res, next) {
   try {
     const bus = new FactorBusConc(new FactorDalConc());
     const router = new FactorRouterClass(bus);
@@ -59,7 +59,7 @@ FactorRouter.put("/:id", async function (req, res, next) {
   }
 });
 
-FactorRouter.delete("/:id",checkAuthorize, async function (req, res, next) {
+FactorRouter.delete("/:id", checkAuthorize, async function (req, res, next) {
   try {
     const bus = new FactorBusConc(new FactorDalConc());
     const router = new FactorRouterClass(bus);

@@ -136,7 +136,6 @@ export class FactorRouterClass {
       };
     }
 
-    console.log(result);
     return {
       status: ResponseStatus.OK,
       message: result,

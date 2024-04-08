@@ -1,3 +1,4 @@
+import { Console } from "console";
 import { EmailLogger } from "../logger/emailLogger";
 const nodemailer = require("nodemailer");
 
@@ -28,23 +29,20 @@ export class MailTransporter implements MessageTransporter {
     subject: string,
     text: string
   ): Promise<boolean> {
+    let result;
     try {
-      const info = await this.transporter
-        .sendMail({
-          from: '"lopencandy" <info@lopencandy.ir>',
-          to: `${reciever}`,
-          subject: `${subject}`,
-          text: text,
-          html: `<b>${text}</b>`,
-        })
-        .then(() => console.log("OK, Email has been sent."))
-        .catch(console.error);
-     // console.log("Message sent: %s", info.messageId);
-      return info;
+      result = await this.transporter.sendMail({
+        from: '"lopencandy" <info@lopencandy.ir>',
+        to: `${reciever}`,
+        subject: `${subject}`,
+        text: text,
+        html: `<b>${text}</b>`,
+      });
+      return result;
     } catch (err: any) {
       const logger = new EmailLogger();
       logger.logError(err, "sendMessage /");
-      return false;
+      return result;
     }
   }
 }
