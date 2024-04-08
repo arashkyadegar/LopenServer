@@ -28,8 +28,8 @@ var options = {
 
 var corsOptions = {
   //  origin: "https://nextjs-lopencandy.iran.liara.run",
-    origin:"https://lopencandy.ir",
-  // origin: "http://localhost:3000",
+  //  origin:"https://lopencandy.ir",
+   origin: "http://localhost:3000",
   optionsSuccessStatus: 200,
   methods: "GET, PUT, POST, DELETE",
   //preflightContinue: true,
