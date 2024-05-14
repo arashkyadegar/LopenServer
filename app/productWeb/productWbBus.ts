@@ -9,12 +9,17 @@ export interface ProductWbBus {
   // updateOne(id: string, entity: ProductEntity): Promise<boolean>;
   findOne(id: string, wbuserId: string): Promise<ProductWbEntity>;
   findAll(): Promise<ProductWbEntity[]>;
+  findByPage(page: number): Promise<ProductWbEntity[]>;
 }
 
 export class ProductWbBusConc implements ProductWbBus {
   private db: ProductWbDal;
   constructor(db: ProductWbDal) {
     this.db = db;
+  }
+  async findByPage(page: number): Promise<ProductWbEntity[]> {
+    const result = await this.db.findByPage(page);
+    return result;
   }
   async findAll(): Promise<ProductWbEntity[]> {
     const today = new Date();

@@ -84,5 +84,16 @@ export class ProductWbRouterClass {
       message: result,
     };
   }
+  async findByPage(req, res, next): Promise<any> {
+    let result;
+    if (req.params.page != undefined) {
+      let page = req.params.page;
+      result = await this.bus.findByPage(page);
+    }
+    return {
+      status: ResponseStatus.OK,
+      message: result,
+    };
+  }
 }
 module.exports = { ProductWbRouterClass };

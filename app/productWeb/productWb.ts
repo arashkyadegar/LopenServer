@@ -3,6 +3,7 @@ import { ProductWbBusConc } from "./productWbBus";
 import { ProductWbDalConc } from "./productWbDal";
 import { ProductWbRouterClassLogger } from "../logger/productLogger";
 import { ProductWbRouterClass } from "./productWbRouterClass";
+import { ProductDalConc } from "../product/productDal";
 export const ProductWbRouter = express.Router();
 
 ProductWbRouter.get("/", async function (req, res, next) {
@@ -45,4 +46,19 @@ ProductWbRouter.put("/:id", async function (req, res, next) {
     next(err);
   }
 });
+
+
+ProductWbRouter.put("/findByPage/:id", async function (req, res, next) {
+  try {
+    const bus = new ProductWbBusConc(new ProductWbDalConc());
+    const router = new ProductWbRouterClass(bus);
+    const result = await router.findByPage(req, res, next);
+    return res.status(200).send(result.message);
+  } catch (err: any) {
+    const logger = new ProductWbRouterClassLogger();
+    logger.logError(err, "put /:id");
+    next(err);
+  }
+});
+
 module.exports = ProductWbRouter;

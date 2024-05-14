@@ -26,7 +26,10 @@ export const checkAuthorize = async function (req, res, next) {
     } else if (req.cookies.alonefighterx != undefined) {
       token = JSON.parse(req.cookies.alonefighterx).token;
     }
+
     const decodedToken = await coder.decode(token);
+    console.log(token);
+    console.log(decodedToken);
     const rslt = jwt.verify(decodedToken, process.env.SECRET_KEY || "abc");
     
     return next();

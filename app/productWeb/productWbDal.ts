@@ -7,6 +7,7 @@ export interface ProductWbDal {
   // updateOne(id: string, entity: ProductEntity): Promise<boolean>;
   findOne(id: string, today: string): Promise<ProductWbEntity>;
   findAll(today: string): Promise<ProductWbEntity[]>;
+  findByPage(page: number): Promise<ProductWbEntity[]>;
 }
 export class ProductWbDalConc implements ProductWbDal {
   logger: any;
@@ -100,6 +101,26 @@ export class ProductWbDalConc implements ProductWbDal {
     } catch (err: any) {
       this.logger.logError(err, "findAll");
     }
+    return result;
+  }
+
+  async findByPage(page: number): Promise<ProductWbEntity[]> {
+    let result;
+    try {
+      const collection = MongoDb.dbconnect("products");
+      let skipNumber = page * 5;
+      await collection.then((products) => {
+        result = products
+          .find({})
+          .skip(skipNumber)
+          .limit(5)
+          .sort({ date: -1 })
+          .toArray();
+      });
+    } catch (err: any) {
+      this.logger.logError(err, "find");
+    }
+
     return result;
   }
 }
