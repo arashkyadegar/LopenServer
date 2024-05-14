@@ -23,6 +23,10 @@ export interface IFactor {
   address: string;
   desc: string;
   date: Date;
+
+  adStatus: string;
+  adReturnId: string;
+  adMessage: string;
 }
 
 export class FactorEntity implements IFactor {
@@ -46,7 +50,6 @@ export class FactorEntity implements IFactor {
   issuerbank: string = "";
 
 
-
   fName: string = "";
   lName: string = "";
   mobile: string = "";
@@ -58,6 +61,11 @@ export class FactorEntity implements IFactor {
   address: string = "";
   desc: string = "";
   date!: Date;
+
+
+  adStatus: string = "";
+  adReturnId: string = "";
+  adMessage: string = "";
 }
 
 export const FactorSchema = Joi.object({
@@ -90,6 +98,10 @@ export const FactorSchema = Joi.object({
   rrn: Joi.string().allow(""),
   datePaid: Joi.string().allow(""),
   issuerbank: Joi.string().allow(""),
+
+  adStatus: Joi.string().allow(""),
+  adReturnId: Joi.string().allow(""),
+  adMessage: Joi.string().allow("")
 });
 
 module.exports = {

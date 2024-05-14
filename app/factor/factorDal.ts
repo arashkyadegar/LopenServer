@@ -98,6 +98,9 @@ export class FactorDalConc implements FactorDal {
           datePaid: entity.datePaid,
           issuerbank: entity.issuerbank,
 
+          adStatus: entity.adStatus,
+          adReturnId: entity.adReturnId,
+          adMessage: entity.adMessage,
           date: Date.now(),
         });
       });
